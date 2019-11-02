@@ -24,3 +24,4 @@ main.o: vector.h packet.h networkNode.h networkMesh.h simulation.h
 
 clean:
 	rm *.o run 
+	git rm -r *.o

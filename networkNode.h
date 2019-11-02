@@ -38,6 +38,7 @@ class NetworkNode
     // Destructor
     ~NetworkNode();
     // Assignment Operator
+    NetworkNode operator=(const NetworkNode& rhs);
      
 
 
