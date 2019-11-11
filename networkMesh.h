@@ -5,12 +5,15 @@
 // header files
 
 
-#ifndef NETWORKNODE_H_
-#define NETWORKNODE_H_
+#ifndef NETWORKMESH_H_
+#define NETWORKMESH_H_ 
 
 #include "networkNode.h"
 #include "path.h"
 
+#include <iostream>
+
+using namespace std;
 
 
 class NetworkMesh
@@ -19,6 +22,12 @@ class NetworkMesh
   private:
     // Node reg
 	NetworkNode* m_nodeRegistry;
+
+
+    // Multiple Paths
+
+    // Paths singular
+
 
     // Max num of nodes
 	size_t m_maxNodes; 
@@ -31,35 +40,36 @@ class NetworkMesh
       NetworkMesh(const NetworkMesh& rhs);
 
     // Destructor
-      ~Network();
+      ~NetworkMesh();
 
     // Assignment Operator
-      =operator(const NetworkMesh& rhs);
+    NetworkMesh operator=(const NetworkMesh& rhs);
 
     // Gettters
-      NetworkMesh getNetworkReg();
-      size_t getMaxNumOfNodes();
+      NetworkMesh getNetworkReg()const;
+      size_t getMaxNumOfNodes()const;
 
     // Setters
       void setNetworkReg(const NetworkMesh& srcMesh);
       void setMaxNumOfNodes(const size_t& maxNumOfNodes);
 
     // Add node 
-      bool addNode(int& nodeId);
+      bool addNode(const int& nodeId);
   
     // Delete node (manage connections)
-      bool deleteNode(int nodeId);
+      bool deleteNode(const int& nodeId);
 
     // Link Node ( A and B )
-      bool linkeNodes(int nodeId_A, int nodeId_B);
+      bool linkeNodes(const int& nodeId_A, const int& nodeId_B);
 
     // ChangeNode()
-      bool changeNode(int nodeId_A);
+     // bool changeNode(int nodeId_A);
 
     // Path available 
-      bool isPathAvailable(int nodeId_A, int nodeId_B)const;
+      bool isPathAvailable(const int& nodeId_A, const int& nodeId_B)const;
    
     // Get Path
+      Path getPath();
 
       // Upload mesh from file 
       // Node Id, delay processing, delay queueing, delay propagation, and delay throughput.
