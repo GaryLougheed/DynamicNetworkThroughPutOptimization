@@ -21,16 +21,21 @@ class NetworkMesh
 
   private:
     // Node reg
-	NetworkNode* m_nodeRegistry;
-
+      NetworkNode* m_nodeRegistry;
 
     // Multiple Paths
+      Path* m_pathReg;
 
     // Paths singular
+      Path m_path; 
 
+    // Current number of nodes
+      size_t m_currentNumOfNode;
 
     // Max num of nodes
-	size_t m_maxNodes; 
+      size_t m_maxNodes; 
+
+
 
   public:
     // Constructor
@@ -48,7 +53,10 @@ class NetworkMesh
     // Gettters
       NetworkMesh getNetworkReg()const;
       size_t getMaxNumOfNodes()const;
-
+      size_t getCurrentNumOfNodes()const; 
+      Path getPath()const;
+      Path* getPathReg()const;
+      
     // Setters
       void setNetworkReg(const NetworkMesh& srcMesh);
       void setMaxNumOfNodes(const size_t& maxNumOfNodes);
