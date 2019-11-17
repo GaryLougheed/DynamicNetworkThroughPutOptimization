@@ -16,6 +16,7 @@ class NetworkNode
 
   private:
     NetworkNode* m_links;
+    int m_numOfLinks;
     int m_bufferSize;
     bool m_wifiEnabled;
     double m_throughput;
@@ -32,18 +33,47 @@ class NetworkNode
         
   public:
     // Constructor
-    NetworkNode();
+      NetworkNode();
+
     // Copy Constructor
-    NetworkNode(const NetworkNode& rhs); 
+      NetworkNode(const NetworkNode& rhs); 
+
     // Destructor
-    ~NetworkNode();
+      ~NetworkNode();
+
     // Assignment Operator
-    NetworkNode operator=(const NetworkNode& rhs);
+      NetworkNode operator=(const NetworkNode& rhs);
      
+    // Getters and Setters
+      
+      NetworkNode* getLink()const;
+      int getNumOfLinks()const;
+      int getBufferSize()const;
+      bool getWifiEnabled()const;
+      double getThroughput()const;
+      double getProcessingDelay()const;
+      double getTransmissionDelay()const;
+      double getQueueDelay()const;
+      double getPropagationDelay()const;
+      double getWifiRange()const;
+      bool isIPV6()const;
+      Packet getPacket()const;
+      Vector getLocation()const;
 
 
-
-
+      void setLink(const NetworkNode* ptr_otherNode);
+      void setNumOfLinks(int numOfLinks); 
+      void setBufferSize(int bufferSize);
+      void setWifiEnabled(bool wifiSetting);
+      void setThroughput(double throughput);
+      void setProcessingDelay(double processingDelay);
+      void setTransmissionDelay(double transmissionDelay);
+      void setQueueDelay(double queueDelay);
+      void setPropagationDelay(double propagationDelay);
+      void setWifiRange(double wifiRange);
+      void setIPV6(bool IPV6setting);
+      void setPacket(Packet packet);
+      void getLocation(Vector vector);
 };
 
 #endif

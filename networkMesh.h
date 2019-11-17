@@ -48,7 +48,7 @@ class NetworkMesh
       ~NetworkMesh();
 
     // Assignment Operator
-    NetworkMesh operator=(const NetworkMesh& rhs);
+      NetworkMesh operator=(const NetworkMesh& rhs);
 
     // Gettters
       NetworkMesh getNetworkReg()const;
@@ -71,7 +71,7 @@ class NetworkMesh
       bool linkeNodes(const int& nodeId_A, const int& nodeId_B);
 
     // ChangeNode()
-     // bool changeNode(int nodeId_A);
+      bool changeNode(int nodeId_A);
 
     // Path available 
       bool isPathAvailable(const int& nodeId_A, const int& nodeId_B)const;
