@@ -21,16 +21,24 @@ class Simulation
   public: 
    Simulation();
    // run funtion
-
+   void GenerateInitialNetwork(int numberOfNodes);
+   void RunSimulation(int numberOfHops);
+   void PacketGenerator();
    // GetStats
-
+   void DisplayStats();
    // send packets
-     // access registry
+   // access registry
+   bool manipulateNetworkMesh(int option, int parameter1, int parameter2);
 
    //  
    
   private:
     NetworkMesh m_mesh;
+    int totalHops;
+    int totalPacketsPassed;
+    int numberNodesAtStart;
+    int totalNodesAdded;
+    int totalNodesRemoved;
      
 
 };

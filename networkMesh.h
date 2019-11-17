@@ -18,11 +18,12 @@ class NetworkMesh
 
   private:
     // Node reg
-
+    int availableNodeID;
     // Max num of nodes
  
 
   public:
+    int incrementID();
     // Add node 
   
     // Delete node (manage connections)
