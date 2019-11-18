@@ -7,6 +7,14 @@ Vector::Vector()
   m_z = 0;
 }
 
+Vector::Vector(double x, double y, double z)
+{
+  m_x = x;
+  m_y = y;
+  m_z = z;
+}
+
+
 Vector::Vector(const Vector& rhs)
 {
     m_x = rhs.getX();

@@ -54,7 +54,7 @@ int main()
 {
 
   // Declare and Initialize variables
-  int userInput = 0;
+  char userInput = '0';
   bool runSimulation = true;
   time_t current_time = 0;
   Simulation hi;

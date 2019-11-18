@@ -16,6 +16,7 @@ class NetworkNode
 
   private:
     NetworkNode* m_links;
+    int m_nodeId;
     int m_numOfLinks;
     int m_bufferSize;
     bool m_wifiEnabled;
@@ -26,8 +27,9 @@ class NetworkNode
     double m_propagationDelay;
     double m_wifiRange;
     bool m_isIPV6;
-    Packet m_packet;
-    Vector m_location;
+    Packet* m_packet;
+    Vector* m_location;
+    static int m_nodeIdProvider;
     // packet array
 
         
@@ -74,6 +76,14 @@ class NetworkNode
       void setIPV6(bool IPV6setting);
       void setPacket(Packet packet);
       void getLocation(Vector vector);
+
+   // Calculate 
+
+      void addLink(NetworkNode* node);
+      bool removeLink(NetworkNode* node);
+      bool removeLink(int linkID);
+
+
 };
 
 #endif

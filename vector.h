@@ -24,6 +24,9 @@ class Vector
     // Constructor
     Vector();
 
+    // Parameterized Constructor
+    Vector(double x, double y, double z);
+
     // Copy Constructor
     Vector(const Vector& rhs);
  

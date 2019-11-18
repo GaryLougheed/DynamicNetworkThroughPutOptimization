@@ -30,12 +30,13 @@ class NetworkMesh
       Path m_path; 
 
     // Current number of nodes
-      size_t m_currentNumOfNode;
+      size_t m_currentNumOfNodes;
 
     // Max num of nodes
       size_t m_maxNodes; 
 
-
+    // Max num of paths
+      size_t m_numOfPaths;
 
   public:
     // Constructor
@@ -51,27 +52,24 @@ class NetworkMesh
       NetworkMesh operator=(const NetworkMesh& rhs);
 
     // Gettters
-      NetworkMesh getNetworkReg()const;
       size_t getMaxNumOfNodes()const;
       size_t getCurrentNumOfNodes()const; 
       Path getPath()const;
       Path* getPathReg()const;
       
     // Setters
-      void setNetworkReg(const NetworkMesh& srcMesh);
-      void setMaxNumOfNodes(const size_t& maxNumOfNodes);
 
     // Add node 
-      bool addNode(const int& nodeId);
+      bool addNode();
   
     // Delete node (manage connections)
       bool deleteNode(const int& nodeId);
 
     // Link Node ( A and B )
-      bool linkeNodes(const int& nodeId_A, const int& nodeId_B);
+      bool linkNodes(const int& nodeId_A, const int& nodeId_B);
 
     // ChangeNode()
-      bool changeNode(int nodeId_A);
+      bool changeNode(const int& nodeId_A);
 
     // Path available 
       bool isPathAvailable(const int& nodeId_A, const int& nodeId_B)const;

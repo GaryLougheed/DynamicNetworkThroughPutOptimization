@@ -1,5 +1,5 @@
-run: helperFunctions.o vector.o packet.o networkNode.o path.o networkMesh.o simulation.o main.o
-	g++ -o run helperFunctions.o vector.o packet.o networkNode.o path.o networkMesh.o simulation.o main.o
+run: helperFunctions.o vector.o packet.o path.o networkNode.o networkMesh.o simulation.o main.o
+	g++ -o run helperFunctions.o vector.o packet.o path.o networkNode.o  networkMesh.o simulation.o main.o
 
 helperFunctions.o: helperFunctions.h
 	g++ -c helperFunctions.cpp
@@ -10,10 +10,11 @@ vector.o: vector.h
 packet.o: packet.h
 	g++ -c packet.cpp
 
-networkNode.o: networkNode.h
-	g++ -c networkNode.cpp
 path.o: path.h
 	g++ -c path.cpp
+
+networkNode.o: networkNode.h
+	g++ -c networkNode.cpp
 
 networkMesh.o: networkMesh.h
 	g++ -c networkMesh.cpp
