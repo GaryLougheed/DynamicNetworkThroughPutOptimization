@@ -8,7 +8,9 @@
 #include <iostream>
 using namespace std;
 
+class NetworkNode;
 
+ostream& operator<<(ostream&, const NetworkNode&);
 
 
 class NetworkNode
@@ -49,6 +51,7 @@ class NetworkNode
     // Getters and Setters
       
       NetworkNode* getLink()const;
+      int getNodeId()const;
       int getNumOfLinks()const;
       int getBufferSize()const;
       bool getWifiEnabled()const;
@@ -83,6 +86,7 @@ class NetworkNode
       bool removeLink(NetworkNode* node);
       bool removeLink(int linkID);
 
+      friend ostream& operator<<(ostream& , const NetworkNode& );
 
 };
 

@@ -7,24 +7,43 @@ NetworkMesh::NetworkMesh()
     m_nodeRegistry = NULL;
 
   // A path not a pointer and does not need to be initialized.
-
+    
   // An array of paths
     m_pathReg = NULL;
 
   // Max num of nodes
-    m_maxNodes = 100;
+    m_maxNodes = 10;
 
   // Current num of nodes
     m_currentNumOfNodes = 0;
 
 }
 
+NetworkMesh::NetworkMesh( const size_t& currentNumOfNodes, const size_t& maxNumNodes)
+{
+
+  m_currentNumOfNodes = currentNumOfNodes;
+  m_maxNodes = maxNumNodes;
+  m_pathReg = NULL;
+  m_numOfPaths = 0;
+  m_nodeRegistry = new NetworkNode[m_maxNodes];
+
+
+
+
+}
+
+
 NetworkMesh::~NetworkMesh()
 {
 
   // delete dynamic memory
+    delete []m_nodeRegistry;
     delete []m_pathReg;
-    
+
+    m_nodeRegistry = NULL;
+    m_pathReg = NULL;
+        
 }
 
 NetworkMesh::NetworkMesh(const NetworkMesh& rhs)
@@ -33,7 +52,18 @@ NetworkMesh::NetworkMesh(const NetworkMesh& rhs)
   int index = 0;
 
   if(this != &rhs)
-  {/*
+  {
+
+    // Allow the object copied into the function to maintain the same data.
+      m_currentNumOfNodes = rhs.m_currentNumOfNodes;
+      m_maxNodes = rhs.m_maxNodes;
+      m_pathReg = NULL;
+      m_numOfPaths = 0; 
+      m_nodeRegistry = new NetworkNode[m_maxNodes];
+  
+      
+
+   /*
     // copy path registry
       if(rhs.m_pathReg != NULL)
       {
@@ -118,8 +148,25 @@ bool NetworkMesh::isPathAvailable(const int& nodeId_A, const int& nodeId_B)const
   return false;
 }
 
+NetworkNode& NetworkMesh::operator[](int index)const
+{
+  return m_nodeRegistry[index];
+}
+
 ostream& operator<<(ostream& os, const NetworkMesh& rhs)
 {
+
+  
+
+  int index = 0;
+
+  os << "NetworkMesh out stream operator: " << '\n';
+ 
+  // Iterate through the network mesh. 
+    for(index = 0; index < rhs.getMaxNumOfNodes(); index++)
+      os << rhs[index] << '\n'; 
+
+ 
   return os;
 }
 

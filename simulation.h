@@ -13,25 +13,43 @@
 
 #include "networkMesh.h"
 
+class Simulation;
 
+
+ostream& operator<<(ostream&, const Simulation&);
 
 class Simulation
 {
 
+  private:
+    NetworkMesh* m_mesh;
+     
   public: 
-   Simulation();
+   // Constructor
+     Simulation();
+
+   // Copy Constructor
+     Simulation(const Simulation& sim);
+
+   // Destructor
+     ~Simulation();
+
+   // getter
+     NetworkMesh getNetworkMesh()const; 
+
    // run funtion
+     bool run();
 
    // GetStats
-
+      
    // send packets
      // access registry
+     bool sendPacket();
 
    //  
    
-  private:
-    NetworkMesh m_mesh;
      
+   friend ostream& operator<<(ostream&, const Simulation&);
 
 };
 

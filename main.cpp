@@ -89,9 +89,14 @@ int main()
         case '3':
                current_time = time(NULL);
                cout << current_time << "seconds passed since processID" << '\n';
+               hi.run();
+               cout << hi;
                break;
 
-          // Determine the overall throughput in the network.
+        case '4':
+              break;    
+
+      // Determine the overall throughput in the network.
         case '5':
                printPrompt("Ending Simulation");
                runSimulation = false;
@@ -113,7 +118,12 @@ void displayMenu()
 {
   printPrompt("");
   printPrompt(" Networking Temporary Menu");
-  printPrompt(" Option 1. "); 
+  printPrompt(" Option 1. ");
+  printPrompt(" Option 2. ");
+  printPrompt(" Option 3: Run Simulation test print function. ");
+  printPrompt(" Option 4. ");
+  printPrompt(" Option 5. ");
+ 
 }
 
 

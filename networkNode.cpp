@@ -26,13 +26,31 @@ NetworkNode::NetworkNode(const NetworkNode& rhs)
 {
   if(this != &rhs)
   {
-    return *this;
+    // stubb
   }
 
 }
 
-NetworkNode::~MetworkNode()
+NetworkNode::~NetworkNode()
 {
+  if(m_location != NULL)
+  {
+    delete m_location;
+    m_location = NULL;
+  }
+
+  if( m_packet != NULL)
+  {
+    delete m_packet;
+    m_packet = NULL;
+  }
+  
+  if( m_links != NULL)
+  {
+    delete []m_links;
+    m_links = NULL;
+  }
+
 
 }
 
@@ -45,7 +63,10 @@ NetworkNode* NetworkNode::getLink()const
 {
   return NULL;
 }
-
+int NetworkNode::getNodeId()const
+{
+  return m_nodeId;
+} 
 int NetworkNode::getNumOfLinks()const
 {
   return 0;
@@ -192,7 +213,27 @@ bool NetworkNode::removeLink(int linkIdD)
   return false;
 }
 
+ostream& operator<<(ostream& os, const NetworkNode& node)
+{
+  os << '\n';
+  os << "Network Node identifier: " << node.getNodeId() << '\n';
+  os << "Node Throughput: " << node.getThroughput() << '\n';
+  os << "Number of Links: " << node.getNumOfLinks() << '\n';
 
+  os << "Buffer Size: " << node.getBufferSize() << '\n';
+  os << "Wifi Enabled: " << node.getWifiEnabled() << '\n';
+  os << "Processing Delay: " << node.getProcessingDelay() << '\n';
+  os << "Transmission Delay: " << node.getTransmissionDelay() << '\n';
+  os << "Queue Delay: " << node.getQueueDelay() << '\n';
+  os << "Propagation Delay: " << node.getPropagationDelay() << '\n';
+  os << "Wifi Range: " << node.getWifiRange() << '\n';
+  os << "IPV6: " << node.isIPV6();
+  os << "Current Packet contents: " << node.getPacket() << '\n';
+  os << "Router location: " << node.getLocation() << '\n';
+
+
+  return os;
+}
 
 
 

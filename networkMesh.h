@@ -42,6 +42,9 @@ class NetworkMesh
     // Constructor
       NetworkMesh();
 
+    // Parameterized Constructor
+      NetworkMesh( const size_t& currentNumOfNodes, const size_t& maxNumNodes);
+
     // Copy Constructor
       NetworkMesh(const NetworkMesh& rhs);
 
@@ -87,6 +90,9 @@ class NetworkMesh
       //   
 
      //  Overloaded Operators
+
+
+       NetworkNode& operator[](int index)const;
 
        friend ostream& operator<<(ostream&, const NetworkMesh& );
 
