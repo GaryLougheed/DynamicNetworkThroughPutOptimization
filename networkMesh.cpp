@@ -60,7 +60,7 @@ NetworkMesh::NetworkMesh(const NetworkMesh& rhs)
       m_pathReg = NULL;
       m_numOfPaths = 0; 
       m_nodeRegistry = new NetworkNode[m_maxNodes];
-  
+// TODO FIXED STATIC UPDATE  
       
 
    /*
