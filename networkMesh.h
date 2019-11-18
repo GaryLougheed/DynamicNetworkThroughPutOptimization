@@ -52,9 +52,13 @@ class NetworkMesh
       NetworkMesh operator=(const NetworkMesh& rhs);
 
     // Gettters
+
       size_t getMaxNumOfNodes()const;
+
       size_t getCurrentNumOfNodes()const; 
+
       Path getPath()const;
+
       Path* getPathReg()const;
       
     // Setters

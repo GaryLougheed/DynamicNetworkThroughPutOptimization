@@ -75,7 +75,7 @@ class NetworkNode
       void setWifiRange(double wifiRange);
       void setIPV6(bool IPV6setting);
       void setPacket(Packet packet);
-      void getLocation(Vector vector);
+      void setLocation(Vector vector);
 
    // Calculate 
 
