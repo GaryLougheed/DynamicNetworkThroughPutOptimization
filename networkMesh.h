@@ -10,7 +10,7 @@
 
 #include "networkNode.h"
 #include "path.h"
-
+#include <fstream>
 #include <iostream>
 
 using namespace std;
@@ -22,6 +22,9 @@ class NetworkMesh
   private:
     // Node reg
       NetworkNode* m_nodeRegistry;
+
+    // runtime
+      //
 
     // Multiple Paths
       Path* m_pathReg;
@@ -43,7 +46,7 @@ class NetworkMesh
       NetworkMesh();
 
     // Parameterized Constructor
-      NetworkMesh( const size_t& currentNumOfNodes, const size_t& maxNumNodes);
+      NetworkMesh( const size_t& maxNumNodes);
 
     // Copy Constructor
       NetworkMesh(const NetworkMesh& rhs);
@@ -66,16 +69,48 @@ class NetworkMesh
       
     // Setters
 
-    // Add node 
+    /* Name: addNode 
+       Input: generate a user menu to add a node to the network. 
+       Output: return true if there was space for the node and all the data created.
+       Process: There exists a contigous node registry. The node added will be assigned to the first
+                available spot within the registry. 
+       Dependancies: network node, iostream, vector, and packet.
+
+      // TODO: file io for addNode overload or new function.
+    */ 
       bool addNode();
   
-    // Delete node (manage connections)
+    /* Name:  deleteNode (manage connections)
+       Input: nodeId 
+       Output: true or false if the node is successfully deleted.
+       Process: The node registry will change completely this will influence the current static
+                node ID provider. The node provider must provide the empty place first. An obtain node ID
+                provider must be developed // TODO.
+                The deletion will iterate through the entire node reg to delete any links to the delete
+                node. Once the iteration is complete the function will report true or false if the memory
+                was correctly deallocated. Since the network is DSR no update tables will be influenced.
+       Dependancies: nodeIdProvider function//TODO , networkNode destructor, link destructor, 
+                     and node registry.
+    */
       bool deleteNode(const int& nodeId);
 
-    // Link Node ( A and B )
+    /* Name: linkNodes
+       Input: two unqiue node IDs, if identical node is are provided the function reports false. 
+       Output: an updated node registry that contains the link established
+       Process: The nodeRegistry accesses the nodeID provided and
+                uses the networkNode establishLink function //TODO  to link the A and B nodes.
+                No updates to the table will be necessary. 
+       Dependancies: establishLink function //TODO and NetworkNode 
+    */
       bool linkNodes(const int& nodeId_A, const int& nodeId_B);
 
-    // ChangeNode()
+    /* Name: changeNode
+       Input: node ID for the node to change, reports false if the node is null or out of bounds.
+       Output: true or false if the node was successfully change.
+       Process: Access the node from the node registry and change is data. We can not change the node
+                Id. //TODO: limit change node parameters.
+       Dependancies: 
+    */
       bool changeNode(const int& nodeId_A);
 
     // Path available 
@@ -84,7 +119,12 @@ class NetworkMesh
     // Get Path
       Path getPath();
 
-      // Upload mesh from file 
+    // Upload mesh from file 
+      bool uploadMesh();
+
+    // Update Function
+      void update();
+
       // Node Id, delay processing, delay queueing, delay propagation, and delay throughput.
    
       //   

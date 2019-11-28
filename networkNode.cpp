@@ -24,9 +24,32 @@ NetworkNode::NetworkNode()
 
 NetworkNode::NetworkNode(const NetworkNode& rhs)
 {
+  int index = 0;
+
   if(this != &rhs)
   {
-    // stubb
+
+    m_nodeId = rhs.m_nodeId;
+
+    if( rhs.m_links != NULL)
+    {
+      for(index = 0; index < rhs.m_numOfLinks; index++)
+        m_links[index] = rhs.m_links[index];
+    }
+
+    m_numOfLinks = 1;
+    m_bufferSize = 100000000; // Typical Buffer size for a router is 10MB, via fasterdata.es.net
+    m_wifiEnabled = false;
+    m_throughput = 0;
+    m_processingDelay = 0;
+    m_transmissionDelay = 0;
+    m_queueDelay = 0;
+    m_propagationDelay = 0;
+    m_wifiRange = 0;
+    m_isIPV6 = false;
+   
+    m_packet = new Packet;
+    m_location = new Vector(0,0,0);
   }
 
 }
@@ -54,7 +77,7 @@ NetworkNode::~NetworkNode()
 
 }
 
-NetworkNode NetworkNode::operator=(const NetworkNode& rhs)
+NetworkNode& NetworkNode::operator=(const NetworkNode& rhs)
 {
 
 }

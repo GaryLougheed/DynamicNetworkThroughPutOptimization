@@ -19,10 +19,10 @@ NetworkMesh::NetworkMesh()
 
 }
 
-NetworkMesh::NetworkMesh( const size_t& currentNumOfNodes, const size_t& maxNumNodes)
+NetworkMesh::NetworkMesh( const size_t& maxNumNodes)
 {
 
-  m_currentNumOfNodes = currentNumOfNodes;
+  m_currentNumOfNodes = 0;
   m_maxNodes = maxNumNodes;
   m_pathReg = NULL;
   m_numOfPaths = 0;
@@ -60,6 +60,10 @@ NetworkMesh::NetworkMesh(const NetworkMesh& rhs)
       m_pathReg = NULL;
       m_numOfPaths = 0; 
       m_nodeRegistry = new NetworkNode[m_maxNodes];
+
+      // copy nodes over
+
+
 // TODO FIXED STATIC UPDATE  
       
 
@@ -97,6 +101,34 @@ NetworkMesh::NetworkMesh(const NetworkMesh& rhs)
 
 NetworkMesh NetworkMesh::operator=(const NetworkMesh& rhs)
 {
+  // Declare and Initialize Variables
+  int index = 0;
+
+  if( this != &rhs )
+  {
+    
+    // Allow the object assigned to the function to maintain the same data.
+      m_currentNumOfNodes = rhs.m_currentNumOfNodes;
+      m_maxNodes = rhs.m_maxNodes;
+      m_pathReg = NULL;
+      m_numOfPaths = 0; 
+      m_nodeRegistry = new NetworkNode[m_maxNodes];
+
+     // copy node Registry 
+       if( rhs.m_nodeRegistry != NULL)
+       {
+         // copy the nodes based on the number of nodes created
+         for( index = 0; index< rhs.m_currentNumOfNodes; index++)
+         {
+           m_nodeRegistry[index] = rhs.m_nodeRegistry[index]; 
+         }
+       }
+
+
+
+  }
+
+
 
   return rhs;
 }
@@ -123,8 +155,25 @@ Path* NetworkMesh::getPathReg()const
   return m_pathReg;
 }
 
+
+
 bool NetworkMesh::addNode()
 {
+
+  // Declare and Initialize Variables
+
+  // Add Node to the network mesh
+
+  // The number of current nodes in the mesh must change. 
+
+    /* Note: There exists a total number of nodes allocated at the construction phase.
+             Those nodes are not initialized or assigned the proper data until the addNode function
+             is called.
+     */ 
+
+  //  
+
+
   return false;
 }
 

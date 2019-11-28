@@ -3,7 +3,7 @@
 Simulation::Simulation()
 {
 
-  m_mesh = new NetworkMesh(1,10);
+  m_mesh = new NetworkMesh(10);
 
 }
 

@@ -46,7 +46,7 @@ class NetworkNode
       ~NetworkNode();
 
     // Assignment Operator
-      NetworkNode operator=(const NetworkNode& rhs);
+      NetworkNode& operator=(const NetworkNode& rhs);
      
     // Getters and Setters
       
