@@ -1,0 +1,7 @@
+Nodes in Mesh: 10
+
+Node ID: 0
+Node Parameters:
+
+Packets to Send: 100
+Packet randomization:

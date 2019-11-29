@@ -12,18 +12,36 @@
 
 
 #include "networkMesh.h"
+#include <iostream>
+using namespace std;
 
 class Simulation;
-
-
 ostream& operator<<(ostream&, const Simulation&);
+
+
+
+/*
+  Class Name: Simulation
+  Class Assumptions: All nodes will be able to report to a master node at a throughput faster than any other throughput in the network. This allows the master node to be able to turn the throughput of the entire network down to a safer level.
+  Class Description: The simulation will access a network mesh. This mesh will accept the packets from the packet send buffer built by the buildSimulation function.
+  Class Parameters: The primary data members are the network mesh, time_t a time tracker for the termination of a simulation, time_t for the current time, and packet send buffer. 
+  Class Methods: The class uses methods to access the network mesh. The simulation builds a run time 
+                 environment that is built up by send packet components. The routing method for the
+                 simulation uses Dynamic Source Routing to obtain the maximum throughput for a send.
+  Class Interactions: The simulation interacts with the main driver and the network mesh. These interactions 
+                      contribute to the statistics developed from the packets sent through the network by the
+                      simulation. It is important to remember that the simulation must run in real time.
+*/
 
 class Simulation
 {
 
   private:
     NetworkMesh* m_mesh;
-     
+    Packet* m_sendBuffer;
+    time_t m_currTime; 
+    time_t m_termTime;
+ 
   public: 
    // Constructor
      Simulation();
@@ -36,19 +54,28 @@ class Simulation
 
    // getter
      NetworkMesh getNetworkMesh()const; 
+     time_t getCurrentTime()const;
+     time_t getTerminationtime()const;
 
    // run funtion
      bool run();
 
+   // update function
+     bool update(time_t delta);
+
    // GetStats
-      
+             
    // send packets
      // access registry
      bool sendPacket();
 
-   //  
+   // build simulation
+     bool buildSimulation();  
+
+   // packet generation
+     bool packetGeneration();
    
-     
+    // Output the simulation. 
    friend ostream& operator<<(ostream&, const Simulation&);
 
 };
