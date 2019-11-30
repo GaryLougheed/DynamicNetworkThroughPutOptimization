@@ -3,6 +3,11 @@ Simulation::Simulation()
 {
   // Create the initial frame work for the network mesh.
     m_mesh = new NetworkMesh(10);
+
+  // Packet size current and max
+    m_currentPackets = 0;
+    m_maxPackets = 0;
+
   // Set the timer to zero
     m_currTime = 0;
     m_termTime = 0;
@@ -19,8 +24,72 @@ Simulation::Simulation(const Simulation& mesh)
 
 Simulation::~Simulation()
 {
-  delete []m_mesh;
+  if( m_mesh !=  NULL) 
+    delete m_mesh;
   m_mesh = NULL;
+
+  if( m_sendBuffer != NULL)
+    delete []m_sendBuffer;
+  m_sendBuffer = NULL; 
+}
+
+bool Simulation::buildSimulation()
+{
+
+  // Declare and Initialize variables
+
+  // Loop through build simulation menu
+
+    // Ask for user input
+
+      // switch based on input
+  
+        // Option 1. Packet Builder
+
+        // Option 2. Packet Generator
+
+   // stubb function
+   return false;
+
+}
+
+bool Simulation::packetGenerator()
+{
+   // Declare and Initialize variables
+  
+     // Randomize Src and Dest
+
+     // Randomize data
+
+     // Randomize unique packet characteristics
+
+
+  // stubb return
+    return false;
+}
+
+
+bool Simulation::packetBuilder()
+{
+
+  // Declare and Initialize varaibles
+
+    // Direct the User through Packet build process. If we can add a packet
+
+      // Step 1. Request source for the packet. Check if its valid
+
+      // Step 2. Request destination for the pack. Check it its valid
+
+      // Step 3. Request user for unqiue packet details
+
+      // We must determine if we can add another packet
+ 
+        // if yes then ask user: "Would you like to add another packet?"
+ 
+        // else no then tell user: "There is no longer any space for another packet."
+
+
+   return false;
 }
 
 bool Simulation::run()
@@ -57,20 +126,67 @@ bool Simulation::run()
 
     // Packets that are sent will be received at certain times.
 
-    // 
 
+  // func stubb 
+    return false;
+}
+
+bool Simulation::update(time_t delta)
+{
+  // Decalre and Initialize variables
+
+  // handle simulation events
+
+  // Update each node in the node registry
+    // each update will generate an update report this report will contain the path to get to a node
+    // and throughput information.
+
+  // The only way to determine the overall max throughput for a network is to understand the paths inside the network. The max throughput for a network changes depending on the path. The max throughput in our case will be the max throughput that the network generates after x amount of packets sent. 
+
+  // The routing protocol is Dynamic source routing mixed with master node reporting. Once the packet
+  // arrives to its destination it reports its arrival. The quickest path will report the arrival of 
+  // the packet first. This instant reporting allows us to determine the quickest path.
+
+
+  // func stubb
   return false;
 }
 
-bool Simulation::sendPacket()
+bool Simulation::sendPackets()
 {
-  return false;
+
+  // Declare and Initialzie variables
+
+  // TODO: Send packets can send at certain times, but for now it will just load packets into the source
+     //      nodes.
+
+  // Iterate through the packet array and send packets
+
+     // Determine the source node and load the packet into the src node
+
+     // This loading will occur at initialization of the simulation prior to the first time tick at 0.0seconds.
+ 
+  // func stubb
+    return false;
 }
 
 NetworkMesh Simulation::getNetworkMesh()const
 {
   return *m_mesh;
 }
+
+int NetworkMesh::getCurrentPackets()const
+{
+    return m_currentPackets;
+}
+
+int NetworkMesh::getMaxPackets()const
+{
+    return m_maxPackets;
+
+}
+
+
 
 ostream& operator<<(ostream& os, const Simulation& sim)
 {

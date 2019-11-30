@@ -17,8 +17,10 @@ NetworkNode::NetworkNode()
   m_propagationDelay = 0;
   m_wifiRange = 0;
   m_isIPV6 = false;
-  m_packet = new Packet;
-  m_location = new Vector(0,0,0);
+  m_packet =NULL;
+// new Packet;
+  m_location = NULL;
+//new Vector(0,0,0);
 
 }
 

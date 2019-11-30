@@ -38,8 +38,11 @@ NetworkMesh::~NetworkMesh()
 {
 
   // delete dynamic memory
-    delete []m_nodeRegistry;
-    delete []m_pathReg;
+    if( m_nodeRegistry != NULL)
+      delete []m_nodeRegistry;
+
+    if( m_pathReg != NULL) 
+      delete []m_pathReg;
 
     m_nodeRegistry = NULL;
     m_pathReg = NULL;

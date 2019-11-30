@@ -39,6 +39,8 @@ class Simulation
   private:
     NetworkMesh* m_mesh;
     Packet* m_sendBuffer;
+    int m_currentPackets;
+    int m_maxPackets;
     time_t m_currTime; 
     time_t m_termTime;
  
@@ -54,9 +56,11 @@ class Simulation
 
    // getter
      NetworkMesh getNetworkMesh()const; 
+     int getCurrentPackets()const;
+     int getMaxPackets()const;
      time_t getCurrentTime()const;
      time_t getTerminationtime()const;
-
+     
    // run funtion
      bool run();
 
@@ -67,13 +71,23 @@ class Simulation
              
    // send packets
      // access registry
-     bool sendPacket();
+     bool sendPackets();
 
    // build simulation
+   /*
+     Name: Build Simulation
+     Input: none
+     Output:
+     Process: Ask the user to add packets to the simulation. Must use valid nodes within the node reg.
+     Dependancies:
+   */
+
      bool buildSimulation();  
 
+     bool packetBuilder();
+
    // packet generation
-     bool packetGeneration();
+     bool packetGenerator();
    
     // Output the simulation. 
    friend ostream& operator<<(ostream&, const Simulation&);

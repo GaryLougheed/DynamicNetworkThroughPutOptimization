@@ -38,3 +38,5 @@ class Link
      friend ostream& operator<<(ostream&, const Link&);
   
 }
+
+#endif
