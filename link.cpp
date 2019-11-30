@@ -11,7 +11,7 @@ Link::Link()
 
 Link::Link(const Link& rhs)
 {
-  if(this != rhs)
+  if(this != &rhs)
   {
     m_throughput = rhs.m_throughput;
     m_dest = rhs.m_dest;
@@ -29,7 +29,7 @@ Link& Link::operator=(const Link& rhs)
 {
   // declare and initialize variabels
 
-  if( this != rhs)
+  if( this != &rhs)
   {
     m_throughput = rhs.m_throughput;
     m_dest = rhs.m_dest;

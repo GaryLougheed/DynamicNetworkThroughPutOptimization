@@ -5,10 +5,10 @@
 #include "networkNode.h"
 using namespace std;
 
+
 class NetworkNode;
 
 class Link;
-
 ostream& operator<<(ostream&, const Link&);
 
 class Link

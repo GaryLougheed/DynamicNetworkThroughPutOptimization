@@ -80,7 +80,17 @@ NetworkNode::~NetworkNode()
 
 NetworkNode& NetworkNode::operator=(const NetworkNode& rhs)
 {
+  // Declare and Initialize variables
 
+  // Check to see if there exists reduant assignment
+    if( this != &rhs) 
+    {
+      // iterate through the rhs and assign the links
+
+    }
+  // return chain operation
+
+    return *this;
 }
 
 NetworkNode* NetworkNode::getLink()const

@@ -9,10 +9,9 @@
 #include <iostream>
 using namespace std;
 
-class Link;
+
 
 class NetworkNode;
-
 ostream& operator<<(ostream&, const NetworkNode&);
 
 
@@ -20,7 +19,7 @@ class NetworkNode
 {
 
   private:
-    link* m_links;
+    Link* m_links;
     int m_nodeId;
     int m_numOfLinks;
     int m_bufferSize;
