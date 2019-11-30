@@ -5,6 +5,8 @@
 #include "networkNode.h"
 using namespace std;
 
+class NetworkNode;
+
 class Link;
 
 ostream& operator<<(ostream&, const Link&);
@@ -13,7 +15,7 @@ class Link
 {
   private:
     int m_throughput;
-    NetworkNode* dest;
+    NetworkNode* m_dest;
 
   public:
    // constructor
@@ -37,6 +39,6 @@ class Link
    // overloaded operators
      friend ostream& operator<<(ostream&, const Link&);
   
-}
+};
 
 #endif

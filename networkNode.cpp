@@ -17,10 +17,9 @@ NetworkNode::NetworkNode()
   m_propagationDelay = 0;
   m_wifiRange = 0;
   m_isIPV6 = false;
-  m_packet =NULL;
-// new Packet;
-  m_location = NULL;
-//new Vector(0,0,0);
+  m_packet = new Packet;
+  m_location = new Vector(0,0,0);
+
 
 }
 
@@ -150,12 +149,15 @@ bool NetworkNode::isIPV6()const
 
 Packet NetworkNode::getPacket()const
 {
-  return *m_packet;
+  if( m_packet != NULL)
+    return *m_packet;
+  
 }
 
 Vector NetworkNode::getLocation()const
-{
-  return *m_location;
+{ 
+  if( m_location!= NULL)
+    return *m_location;
 }
 
 void NetworkNode::setLink(const NetworkNode* ptr_otherNode)

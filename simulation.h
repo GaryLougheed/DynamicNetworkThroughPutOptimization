@@ -77,18 +77,33 @@ class Simulation
    /*
      Name: Build Simulation
      Input: none
-     Output:
-     Process: Ask the user to add packets to the simulation. Must use valid nodes within the node reg.
-     Dependancies:
+     Output: true or false if the build becomes invalid or valid completely. 
+     Process: Ask the user to add packets to the simulation. Must use valid nodes within the node reg. In Order to build a packet we must first build the node mesh.
+     Dependancies: Classes: NetworkMesh NetworkNode Packet Libraries: fstream iostream 
    */
-
      bool buildSimulation();  
 
+
+   /*
+     Name:
+     Input:
+     Output:
+     Process:
+     Dependancies:
+   */
      bool packetBuilder();
 
    // packet generation
      bool packetGenerator();
-   
+  
+   // Add node to mesh.
+     bool addNodeToMesh();
+
+   // Establish Link within Mesh
+     bool establishLink(int& src, int& dest);
+
+   // Remove node from mesh
+ 
     // Output the simulation. 
    friend ostream& operator<<(ostream&, const Simulation&);
 

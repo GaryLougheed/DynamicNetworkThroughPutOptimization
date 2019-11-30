@@ -44,14 +44,28 @@ bool Simulation::buildSimulation()
 
       // switch based on input
   
-        // Option 1. Packet Builder
+        // Option 4. Packet Builder : Only if two valid nodes exist in the mesh.
 
-        // Option 2. Packet Generator
+        // Option 5. Packet Generator : Only if two valid nodes exist in the mesh.
 
    // stubb function
    return false;
 
 }
+
+
+bool Simulation::addNodeToMesh()
+{
+  // function stubb
+  return false;
+}
+
+bool Simulation::establishLink(int& src, int& dest)
+{
+  // function stubb
+  return false;
+}
+
 
 bool Simulation::packetGenerator()
 {
@@ -175,12 +189,12 @@ NetworkMesh Simulation::getNetworkMesh()const
   return *m_mesh;
 }
 
-int NetworkMesh::getCurrentPackets()const
+int Simulation::getCurrentPackets()const
 {
     return m_currentPackets;
 }
 
-int NetworkMesh::getMaxPackets()const
+int Simulation::getMaxPackets()const
 {
     return m_maxPackets;
 

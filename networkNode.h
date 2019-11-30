@@ -5,8 +5,11 @@
 
 #include "vector.h"
 #include "packet.h"
+#include "link.h"
 #include <iostream>
 using namespace std;
+
+class Link;
 
 class NetworkNode;
 
@@ -17,7 +20,7 @@ class NetworkNode
 {
 
   private:
-    NetworkNode* m_links;
+    link* m_links;
     int m_nodeId;
     int m_numOfLinks;
     int m_bufferSize;
