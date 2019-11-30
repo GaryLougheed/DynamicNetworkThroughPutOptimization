@@ -29,6 +29,7 @@ dependancies:
 void displayTitle();
 void displayMenu();
 void displayNetworkInteraction();
+void displaySecretDebug();
 
 // Main program
 int main()
@@ -78,8 +79,8 @@ int main()
             break;
 
         // Interaction with Network Mesh (add, delete, and change Node Parameters)
-        case '2': 
-               displayMenu();   
+        case '2':
+               displayMenu();
                break;
 
         // Run Simulation // outputs? parameter duration for simulation.
@@ -103,6 +104,14 @@ int main()
 
         //quit the simulation
         case '5':
+               runSimulation = false;
+               break;
+
+        //secret debug menu
+        case '400':
+               printPrompt("You have found the secret debug menu");
+        default:
+               printPrompt("You have entered an invalid command"); 
       }
      }
   return 0;
@@ -201,4 +210,9 @@ void displayNetworkInteraction()
    }
 
 
+}
+
+void displaySecretDebug()
+{
+    int debugUserInput = 0;
 }

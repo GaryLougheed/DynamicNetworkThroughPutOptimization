@@ -10,7 +10,8 @@
 #ifndef SIMULATION_H_
 #define SIMULATION_H_
 
-
+#include <cstdlib>
+#include <ctime>
 #include "networkMesh.h"
 
 
@@ -29,6 +30,8 @@ class Simulation
    // send packets
    // access registry
    bool manipulateNetworkMesh(int option, int parameter1, int parameter2);
+   //simulation will keep track of node ID assigned
+   void incrementNodeID();
 
    //  
    
@@ -39,7 +42,7 @@ class Simulation
     int numberNodesAtStart;
     int totalNodesAdded;
     int totalNodesRemoved;
-     
+    int currentNodeID; 
 
 };
 
