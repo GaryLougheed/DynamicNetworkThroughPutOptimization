@@ -26,9 +26,28 @@ dependancies:
 */
 
 
+/*
+name: displayTitle()
+input: none	
+output: a cout message displaying the title of the program
+process: iostream sending cout message to terminal/screen
+dependancies: iostream
+*/
 void displayTitle();
 
+
+/*
+name: displayMenu()
+input: none 
+output: a cout mesage displaying the title of the program
+process: iostream sending cout message to terminal/screen
+dependancies: iostream
+*/
 void displayMenu();
+
+
+
+
 
 // Main program
 int main()
