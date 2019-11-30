@@ -47,7 +47,7 @@ void GenerateInitialNetwork(int numberOfNodes)
             {
                 dice = (rand() % 100) + 1;
                 //the fewer nodes, the higher probablity that chosen nodes will be connected together
-                if(dice < (density + (100 / m_mesh.getMaxNumOfNodes)) )
+                if(dice < (density + (100 / m_mesh.getCurrentNumOfNodes)) )
                 {
                     flagLinkNodes = m_mesh.linkNodes(firstNodeID,secondNodeID);
                 }
