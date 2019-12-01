@@ -7,6 +7,9 @@
 #include <iostream>
 using namespace std;
 
+
+// A report contains an empty message or a yes! packet reached its end
+
 class NetworkNode;
 ostream& operator<<(ostream&, const NetworkNode&);
 
@@ -157,7 +160,7 @@ class NetworkNode
      bool rcvPacket(const Packet& pkt);
 
    // Send Packet
-     bool sendPacket(const int& linkID, Report& rcvReport);
+     bool sendPacket(const int& linkID);
 
    // Calculate 
 

@@ -276,7 +276,7 @@ bool NetworkNode::rcvPacket(const Packet& pkt)
   return false;
 }
 
-bool NetworkNode::sendPacket(const int& linkID, Report& rcvReport)
+bool NetworkNode::sendPacket(const int& linkID)
 {
 
   // Declare and Initialize variables
@@ -394,7 +394,7 @@ void Link::toggleInUse()
   if(m_inUse == true)
     m_inUse = false;
   else
-    m_inUse = true
+    m_inUse = true;
 
 }
 

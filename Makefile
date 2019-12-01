@@ -10,19 +10,19 @@ vector.o: vector.h
 packet.o: packet.h
 	g++ -c packet.cpp
 
-path.o: path.h
-	g++ -c path.cpp
-
 NodeAndLink.o: NodeAndLink.h
 	g++ -c NodeAndLink.cpp
  
+path.o: path.h
+	g++ -c path.cpp
+
 networkMesh.h: networkMesh.h
 	g++ -c networkMesh.cpp
 
 simulation.o: simulation.h
 	g++ -c simulation.cpp
 
-main.o: vector.h packet.h networkNode.h path.h networkMesh.h simulation.h
+main.o: vector.h packet.h path.h NodeAndLink.h networkMesh.h simulation.h
 	g++ -c main.cpp 
 
 clean:

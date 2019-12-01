@@ -8,7 +8,6 @@
 #ifndef NETWORKMESH_H_
 #define NETWORKMESH_H_ 
 
-#include "networkNode.h"
 #include "path.h"
 #include <fstream>
 #include <iostream>
