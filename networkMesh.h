@@ -23,8 +23,8 @@ class NetworkMesh
     // Node reg
       NetworkNode* m_nodeRegistry;
 
-    // runtime
-      //
+    // time mesh has lived 
+      time_t m_timeLived;
 
     // Multiple Paths
       Path* m_pathReg;
@@ -78,7 +78,9 @@ class NetworkMesh
 
       // TODO: file io for addNode overload or new function.
     */ 
-      bool addNode();
+      bool addNode(const NetworkNode& node);
+
+      bool addNode(); // TODO: delete this function prototype
   
     /* Name:  deleteNode (manage connections)
        Input: nodeId 
@@ -123,7 +125,7 @@ class NetworkMesh
       bool uploadMesh();
 
     // Update Function
-      void update();
+      bool update(time_t delta);
 
       // Node Id, delay processing, delay queueing, delay propagation, and delay throughput.
    

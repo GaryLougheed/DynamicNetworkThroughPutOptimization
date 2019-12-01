@@ -27,7 +27,7 @@ NetworkMesh::NetworkMesh( const size_t& maxNumNodes)
   m_pathReg = NULL;
   m_numOfPaths = 0;
   m_nodeRegistry = new NetworkNode[m_maxNodes];
-
+  m_timeLived = 0;
 
 
 
@@ -158,12 +158,26 @@ Path* NetworkMesh::getPathReg()const
   return m_pathReg;
 }
 
+bool NetworkMesh::addNode(const NetworkNode& node)
+{
+  // Declare and Initialize variables
 
+  // Check to see if a space is available for the new node.
+ 
+  // Add Node to the network mesh
+
+  // increment current number of initialized nodes in the mesh.
+
+}
 
 bool NetworkMesh::addNode()
 {
+  // TODO: delete this function maybe
+
 
   // Declare and Initialize Variables
+
+  // Check to see if a space is available for the new node in the node registry.
 
   // Add Node to the network mesh
 
@@ -176,27 +190,74 @@ bool NetworkMesh::addNode()
 
   //   
 
-
+  // function stubb
   return false;
 }
 
 bool NetworkMesh::deleteNode(const int& nodeId)
 {
+  // Declare and Initialize variables
+
+  // Check if the node registry is empty
+ 
+    // if the node registry is not empty then we can remove a node
+
+    // set the index to null after deallocation. 
+
+    // Decrement number of current nodes in the node registry
+ 
   return false;
 }
 
 bool NetworkMesh::linkNodes(const int& nodeId_A, const int& nodeId_B)
 {
+  // Declare and Initialize variables
+
+  // Check if the the nodes exist in the node registry
+
+    // If both nodes exist in the registry then those nodes can be linked together 
+ 
   return false;
 }
 
 bool NetworkMesh::changeNode(const int& nodeId_A)
 {
+  // Declare eand Initialize variables
+
+  // Check if the node exists in the node registry.
+   
+    // if the node exists in the node registry then we can change the nodes contents
+
+
   return false;
 }
 
 bool NetworkMesh::isPathAvailable(const int& nodeId_A, const int& nodeId_B)const
 {
+
+// TODO
+ return false;
+}
+
+
+bool NetworkMesh::uploadMesh()
+{
+  // function stubb
+  return false;
+} 
+
+bool NetworkMesh::update(time_t delta)
+{
+  // Declare and initialize variables
+
+  // Iterate through the node registry and tick each node.
+
+  // if the node that is ticked returns false, then return false indicating a bad simulation time update.
+
+
+
+
+  // function stubb
   return false;
 }
 

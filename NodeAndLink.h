@@ -18,6 +18,7 @@ class Link
   private:
     int m_throughput;
     NetworkNode* m_dest;
+    bool m_inUse; 
 
   public:
    // constructor
@@ -38,6 +39,10 @@ class Link
    // Getters and Setters
      int getThroughput()const;
      NetworkNode* getLink()const;
+     bool getInUse()const;
+
+     void toggleInUse();
+
    // overloaded operators
      friend ostream& operator<<(ostream&, const Link&);
   
@@ -67,6 +72,7 @@ class NetworkNode
     double m_propagationDelay;
     double m_wifiRange;
     bool m_isIPV6;
+    time_t m_timeLived;
     Packet* m_packet;
     Vector* m_location;
     static int m_nodeIdProvider;
@@ -86,42 +92,79 @@ class NetworkNode
     // Assignment Operator
       NetworkNode& operator=(const NetworkNode& rhs);
      
-    // Getters and Setters
+    // Getters 
       
       NetworkNode* getLink()const;
+
       int getNodeId()const;
+
       int getNumOfLinks()const;
+
       int getBufferSize()const;
+
       bool getWifiEnabled()const;
+
       double getThroughput()const;
+
       double getProcessingDelay()const;
+
       double getTransmissionDelay()const;
+
       double getQueueDelay()const;
+
       double getPropagationDelay()const;
+
       double getWifiRange()const;
+
       bool isIPV6()const;
+
       Packet getPacket()const;
+
       Vector getLocation()const;
 
-
+   // Setters 
       void setLink(const NetworkNode* ptr_otherNode);
+
       void setNumOfLinks(int numOfLinks); 
+
       void setBufferSize(int bufferSize);
+
       void setWifiEnabled(bool wifiSetting);
+
       void setThroughput(double throughput);
+
       void setProcessingDelay(double processingDelay);
+
       void setTransmissionDelay(double transmissionDelay);
+
       void setQueueDelay(double queueDelay);
+
       void setPropagationDelay(double propagationDelay);
+
       void setWifiRange(double wifiRange);
+
       void setIPV6(bool IPV6setting);
+
       void setPacket(Packet packet);
+
       void setLocation(Vector vector);
+
+
+   // Update 
+     bool update(time_t delta);
+
+   // Receive Packet
+     bool rcvPacket(const Packet& pkt);
+
+   // Send Packet
+     bool sendPacket(const int& linkID, Report& rcvReport);
 
    // Calculate 
 
       void addLink(NetworkNode* node);
+
       bool removeLink(NetworkNode* node);
+
       bool removeLink(int linkID);
 
       friend ostream& operator<<(ostream& , const NetworkNode& );

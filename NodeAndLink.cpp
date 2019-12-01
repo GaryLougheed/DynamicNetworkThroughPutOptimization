@@ -18,6 +18,9 @@ NetworkNode::NetworkNode()
   m_propagationDelay = 0;
   m_wifiRange = 0;
   m_isIPV6 = false;
+ 
+  m_timeLived = 0;
+
   m_packet = new Packet;
   m_location = new Vector(0,0,0);
 
@@ -236,6 +239,59 @@ void NetworkNode::setLocation(Vector vector)
 
 }
 
+bool NetworkNode::update(time_t delta)
+{
+
+  // Declare and Intialize variables
+
+  // Check to see if we can send a packet 
+
+    // if we can send a packet then we send a packet.
+
+       // A packet send means we have to decrease the packets in the buffer
+
+       // The link needs to be marked for that packet sent
+
+       // Once all links have sent a packet then the links are unmarked and the packet leaves the node
+
+       // If a send reports true then a rcv was true, these truths mean that the packet was received at dest. //TODO: error handling at the send receive level.
+
+    // If all links have been marked for a packet then empty the link marker.
+ 
+
+
+
+  return false;
+}
+
+bool NetworkNode::rcvPacket(const Packet& pkt)
+{
+
+  // Declare and initialize variables
+
+  // Add a packet to the packet buffer
+
+  // Check to see if the packet has reached its destination.
+
+  return false;
+}
+
+bool NetworkNode::sendPacket(const int& linkID, Report& rcvReport)
+{
+
+  // Declare and Initialize variables
+
+  // Send packet on link.
+
+  // mark link as sent.
+
+  // call rcv on the dest node of the link.
+
+    // this rcv will report to the node mesh that the packet has reached its end.
+
+  return false;
+}
+
 void NetworkNode::addLink(NetworkNode* node)
 {
 
@@ -281,6 +337,7 @@ Link::Link()
   // Declare and Initialize variables
   m_throughput = 0;
   m_dest = NULL;
+  m_inUse = false;
 
 }
 
@@ -290,6 +347,7 @@ Link::Link(const Link& rhs)
   {
     m_throughput = rhs.m_throughput;
     m_dest = rhs.m_dest;
+    m_inUse = rhs.m_inUse;
   }
  
 }
@@ -308,6 +366,7 @@ Link& Link::operator=(const Link& rhs)
   {
     m_throughput = rhs.m_throughput;
     m_dest = rhs.m_dest;
+    m_inUse = rhs.m_inUse;
   }
  
 }
@@ -323,6 +382,21 @@ NetworkNode* Link::getLink()const
   return m_dest;
 }
 
+bool Link::getInUse()const
+{
+
+  return m_inUse;
+}
+
+void Link::toggleInUse()
+{
+
+  if(m_inUse == true)
+    m_inUse = false;
+  else
+    m_inUse = true
+
+}
 
 ostream& operator<<(ostream& os, const Link& rhs)
 {

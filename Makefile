@@ -26,5 +26,5 @@ main.o: vector.h packet.h networkNode.h path.h networkMesh.h simulation.h
 	g++ -c main.cpp 
 
 clean:
-	rm *.o run 
+	rm *.gch *.o run 
 	git rm -r *.o
