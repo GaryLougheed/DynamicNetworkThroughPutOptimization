@@ -165,19 +165,25 @@ bool Simulation::packetBuilder()
    return false;
 }
 
-bool Simulation::run()
+bool Simulation::run(int runLength)
 {
   // Declare and initialize simulation parameters
 
-    // Standardize delta time for stability. 0.2?
+    // Mesh iterator used to iterate through the mesh and update each node. 
+    int meshUpdateIterator = 0;
 
+    // Standardize time for stability and simulation time initialization.
+      time_t standardDelta = 0.2;
+      m_currTime = 0.0;
+      m_termTime = runLength; 
     // Secure Throughput setting: 1 second. 
-
-
+      int secure_throughput = 0.3;
+      
   // Obtain current time
-
+// TODO: Move to update function.
   // Loop until termination time
-
+  while( m_currTime < m_termTime)
+  { 
     // Check security information from reports sent to simulation.
        // If a node has been compromised the node will be improved from the mesh.
          // The links associated with the node will be removed.
@@ -190,15 +196,44 @@ bool Simulation::run()
         // Example: NodeA send packet to NodeC at time 0.3. The tick will occur at 0,0.2,0.4
                  // The packet will be sent at 0.4 for simulation stability.
                  //  
-   
-    // We need to tick the node registry ever time step. 
+        if( m_currentPackets > CONST_NO_PACKETS)
+        {
+          // Assume: At 0.0 all packets(in this test sim case, 1 packet) will be loaded into the node
+             // This packet will be sent by the source node during this first update.
 
+          // send packet
+            m_mesh[m_currentPacket[0].getSrcId()].setPacket(m_currentPacket[0]);
+
+            // remove from buffer
+            m_currentPacket--; 
+        }  
+    // We need to tick the node mesh ever time step. 
+      for(meshUpdateIterator = 0; meshUpdateIterator < m_mesh->getCurrentNumOfNodes(); meshUpdateIterator++)
+      {
+
+        // update each network node in the mesh.
+          if(m_mesh[meshUpdateIterator].update(standardDelta))
+          {
+            // Premature end of simulation, we are simulating the optimal throughput send of one packet
+            m_currTime = m_termTime;
+            
+            // report data for received packet/last send function called.
+              // m_mesh[meshUpdateIterator] this happens report happens when the packet 
+              // reaches the received node. At the network Node level. 
+ 
+
+          }
+
+      }
     // The packets will be place into the source buffers at certain times.
     
     // These packets will be sent at certain times.
 
     // Packets that are sent will be received at certain times.
-
+    
+    // Update current time by delta
+      m_currTime += standardDelta; 
+  }
 
   // func stubb 
     return false;

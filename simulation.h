@@ -15,6 +15,8 @@
 #include <iostream>
 using namespace std;
 
+const int CONST_NO_PACKETS = 0; // a constant for defining no packets in the simulation buffer.
+
 class Simulation;
 ostream& operator<<(ostream&, const Simulation&);
 
@@ -62,18 +64,6 @@ class Simulation
      time_t getCurrentTime()const;
      time_t getTerminationtime()const;
      
-   // run funtion
-     bool run();
-
-   // update function
-     bool update(time_t delta);
-
-   // GetStats
-             
-   // send packets
-     // access registry
-     bool sendPackets();
-
    // build simulation
    /*
      Name: Build Simulation
@@ -84,6 +74,17 @@ class Simulation
    */
      bool buildSimulation();  
 
+   // run funtion
+     bool run(int runLength);
+
+   // update function
+     bool update(time_t delta);
+
+   // GetStats
+             
+   // send packets
+     // access registry
+     bool sendPackets();
 
    /*
      Name:

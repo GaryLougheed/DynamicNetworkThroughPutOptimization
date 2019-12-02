@@ -126,7 +126,7 @@ int main()
   bool runSimulation = true;
   time_t current_time = 0;
   Simulation sim;
-  time_t simRunTime = 0;
+  time_t lengthOfSimulation = 0;
 
   // Networking Simulation
 
@@ -162,10 +162,10 @@ int main()
            // running simulation.
         case '2':
                cout << '\n' << "How long would you like to run the simulation for? ";
-               cin >> simRunTime; 
+               cin >> lengthOfSimulation; 
                current_time = time(NULL);
                cout<< "Test: "  << current_time << "seconds passed since processID" << '\n';
-               sim.run();
+               sim.run(lengthOfSimulation);
                cout << sim;
                break;
 

@@ -163,10 +163,14 @@ bool NetworkMesh::addNode(const NetworkNode& node)
   // Declare and Initialize variables
     
   // Check to see if a space is available for the new node.
-   
-  // Add Node to the network mesh
+    if( getCurrentNumOfNodes() < getMaxNumOfNodes()) 
+    {
+      // Add Node to the network mesh
 
-  // increment current number of initialized nodes in the mesh.
+      // increment current number of initialized nodes in the mesh.
+
+    }
+
 
   // function stubb
   return false;
@@ -216,11 +220,11 @@ bool NetworkMesh::linkNodes(const int& nodeId_A, const int& nodeId_B)
   // Declare and Initialize variables
 
   // Check if the the nodes exist in the node registry
-    if( doesNodeExist(m_nodeRegistry[nodeId_A]) && doesNodeExist(m_nodeRegistry[nodeId_B])
+    if( doesNodeExist(nodeId_A) && doesNodeExist(nodeId_B))
     {
       // If both nodes exist in the registry then those nodes can be linked together
-        m_nodeRegistry[nodeId_A].addLink(nodeId_B);
-        m_nodeRegistry[nodeId_B].addLink(nodeId_A);
+        m_nodeRegistry[nodeId_A].addLink(&m_nodeRegistry[nodeId_B]);
+        m_nodeRegistry[nodeId_B].addLink(&m_nodeRegistry[nodeId_A]);
 
       return true;
  
@@ -261,7 +265,7 @@ bool NetworkMesh::doesNodeExist(const int& nodeId)
 
   // if the current number of nodes is equal to or less than nodeID+1
     // return true;
-    if(nodeId+1 <= m_currentNumOfNodes)
+    if(nodeId < m_currentNumOfNodes)
       return true;
 
   // then nodeId is not within the range of the mesh. //TODO: this does not detect deleted nodes.

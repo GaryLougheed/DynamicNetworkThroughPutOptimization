@@ -109,6 +109,8 @@ class NetworkNode
 
       int getNodeId()const;
 
+      NetworkNode* getLink(const int& linkId)const;
+
       int getNumOfLinks()const;
 
       int getBufferSize()const;
@@ -165,7 +167,7 @@ class NetworkNode
      bool update(time_t delta);
 
    // Receive Packet
-     bool rcvPacket(const Packet& pkt);
+     bool rcvPacket(Packet* pkt);
 
    // Send Packet
      bool sendPacket(const int& linkID);

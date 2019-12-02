@@ -53,6 +53,7 @@ NetworkNode::NetworkNode(const NetworkNode& rhs)
     m_wifiRange = 0;
     m_isIPV6 = false;
    
+  m_timeLived = rhs.m_timeLived;
     m_packet = new Packet;
     m_location = new Vector(0,0,0);
   }
@@ -97,10 +98,11 @@ NetworkNode& NetworkNode::operator=(const NetworkNode& rhs)
     return *this;
 }
 
-NetworkNode* NetworkNode::getLink()const
+NetworkNode* NetworkNode::getLink(const int& linkId)const
 {
   return NULL;
 }
+
 int NetworkNode::getNodeId()const
 {
   return m_nodeId;
@@ -243,20 +245,46 @@ bool NetworkNode::update(time_t delta)
 {
 
   // Declare and Intialize variables
+    int linkIndex = 0;
 
+  // update time 
+    m_timeLived+=delta;
+
+ 
   // Check to see if we can send a packet 
+    if( m_packet != NULL )
+    {
 
-    // if we can send a packet then we send a packet.
+      // Check to see if a link is available if yes send on that link and link is unmarked
+        for(linkIndex = 0; linkIndex < m_numOfLinks; linkIndex++)
+        {
+          if(!m_links[linkIndex].getInUse())
+          {
+            // send packet on link only if the there is a time sync.
+              // We obtain throughput here because throughput indicates how much time
+               // it will take to send one standard unit packet. 
+              if(m_timeLived > m_links[linkIndex].getThroughput())
+              {
+                // send Packet src to dest.
+ 
+                // toggle in use to true.
+                  m_links[linkIndex].toggleInUse();
 
-       // A packet send means we have to decrease the packets in the buffer
+              }
+          }
+        }
 
-       // The link needs to be marked for that packet sent
+     }
 
-       // Once all links have sent a packet then the links are unmarked and the packet leaves the node
+        // A packet send means we have to decrease the packets in the buffer
 
-       // If a send reports true then a rcv was true, these truths mean that the packet was received at dest. //TODO: error handling at the send receive level.
 
-    // If all links have been marked for a packet then empty the link marker.
+    /*     Once all links have sent a packet then the links are unmarked and the packet leaves the node
+          Occurs in link depletition.
+     If all links have been marked for a packet then empty the link marks.*/
+
+        // If a send reports true then a rcv was true, these truths mean that the packet was received at dest. //TODO: error handling at the send receive level.
+
  
 
 
@@ -264,13 +292,17 @@ bool NetworkNode::update(time_t delta)
   return false;
 }
 
-bool NetworkNode::rcvPacket(const Packet& pkt)
+bool NetworkNode::rcvPacket(Packet* pkt)
 {
-
+//TODO function parameters
   // Declare and initialize variables
 
   // Add a packet to the packet buffer
-
+    // TODO: Network is built on one packet send test drive.
+    // The buffer is of size on packet for this simulation.
+    // all nodes clear there buffer after one successful send.
+    // m_packet = pkt 
+  
   // Check to see if the packet has reached its destination.
 
   return false;
@@ -282,12 +314,14 @@ bool NetworkNode::sendPacket(const int& linkID)
   // Declare and Initialize variables
 
   // Send packet on link.
-
-  // mark link as sent.
+    // Link is assumed to be toggle prior to function call: TODO proper toggling occurance.
+    // mark link as sent.
 
   // call rcv on the dest node of the link.
-
     // this rcv will report to the node mesh that the packet has reached its end.
+      //return (rvc());
+
+
 
   return false;
 }
