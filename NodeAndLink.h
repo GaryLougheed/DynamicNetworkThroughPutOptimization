@@ -8,6 +8,11 @@
 using namespace std;
 
 
+
+// Global constants
+const int MAX_NUM_OF_LINKS = 3;
+
+
 // A report contains an empty message or a yes! packet reached its end
 
 class NetworkNode;
@@ -44,6 +49,11 @@ class Link
      NetworkNode* getLink()const;
      bool getInUse()const;
 
+
+   // set destination to a node in the heap(dynamically allocated)
+     void setDest(NetworkNode* node);
+
+   // Change the status of the links in usage.
      void toggleInUse();
 
    // overloaded operators
@@ -96,8 +106,6 @@ class NetworkNode
       NetworkNode& operator=(const NetworkNode& rhs);
      
     // Getters 
-      
-      NetworkNode* getLink()const;
 
       int getNodeId()const;
 
@@ -126,7 +134,7 @@ class NetworkNode
       Vector getLocation()const;
 
    // Setters 
-      void setLink(const NetworkNode* ptr_otherNode);
+      bool setLink(NetworkNode* ptr_otherNode);
 
       void setNumOfLinks(int numOfLinks); 
 

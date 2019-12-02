@@ -7,8 +7,8 @@ NetworkNode::NetworkNode()
 {
   m_nodeIdProvider++;
   m_nodeId = m_nodeIdProvider;
-  m_links = NULL;
-  m_numOfLinks = 1;
+  m_links = new Link[MAX_NUM_OF_LINKS];
+  m_numOfLinks = 0;
   m_bufferSize = 100000000; // Typical Buffer size for a router is 10MB, via fasterdata.es.net
   m_wifiEnabled = false;
   m_throughput = 0;
@@ -107,18 +107,18 @@ int NetworkNode::getNodeId()const
 } 
 int NetworkNode::getNumOfLinks()const
 {
-  return 0;
+  return m_numOfLinks;
 }
 
 int NetworkNode::getBufferSize()const
 {
 
-  return 0;
+  return m_bufferSize;
 }
 
 bool NetworkNode::getWifiEnabled()const
 {
-  return false;
+  return m_wifiEnabled;
 }
 
 double NetworkNode::getThroughput()const
@@ -174,9 +174,9 @@ Vector NetworkNode::getLocation()const
     return *m_location;
 }
 
-void NetworkNode::setLink(const NetworkNode* ptr_otherNode)
+bool NetworkNode::setLink(NetworkNode* ptr_otherNode)
 {
-
+  return false;
 }
 
 void NetworkNode::setNumOfLinks(int numOfLinks)
@@ -292,9 +292,39 @@ bool NetworkNode::sendPacket(const int& linkID)
   return false;
 }
 
-void NetworkNode::addLink(NetworkNode* node)
+void NetworkNode::addLink(NetworkNode* ptr_otherNode)
 {
 
+  // Declare and Initialize variables
+    int index = m_numOfLinks; 
+    
+  // Check if we can add a link to the node
+    if(m_numOfLinks <= MAX_NUM_OF_LINKS) 
+    {
+      // if we can add a link to the node 
+      // if ptr_otherNode is null then do not add link 
+        if( ptr_otherNode != NULL)
+        {
+         switch(m_numOfLinks)
+         {
+           case '0':
+                 m_links[index].setDest(ptr_otherNode);
+                 m_numOfLinks++;
+                 break;
+
+           case '1':
+                 m_links[index].setDest(ptr_otherNode);
+                 m_numOfLinks++;
+                 break;
+
+           case '2':
+                 m_links[index].setDest(ptr_otherNode);
+                 m_numOfLinks++;
+                 break;
+         }
+        } 
+      // increment the number of links this node has.
+    }
 }
 
 bool NetworkNode::removeLink(NetworkNode* node)
@@ -386,6 +416,14 @@ bool Link::getInUse()const
 {
 
   return m_inUse;
+}
+
+void Link::setDest(NetworkNode* node)
+{
+  // Declare and Initialize variables
+
+  // set destination, null if not in use.
+     m_dest = node; 
 }
 
 void Link::toggleInUse()

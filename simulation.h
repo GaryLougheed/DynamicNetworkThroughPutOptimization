@@ -39,6 +39,7 @@ class Simulation
   private:
     NetworkMesh* m_mesh;
     Packet* m_sendBuffer;
+    int m_currentNodes;
     int m_currentPackets;
     int m_maxPackets;
     time_t m_currTime; 
@@ -97,7 +98,7 @@ class Simulation
      bool packetGenerator();
   
    // Add node to mesh.
-     bool addNodeToMesh();
+     bool addNodeToMesh(const NetworkNode& node);
 
    // Establish Link within Mesh
      bool establishLink(int& src, int& dest);

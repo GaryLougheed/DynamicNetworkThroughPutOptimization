@@ -8,6 +8,8 @@ Simulation::Simulation()
     m_currentPackets = 0;
     m_maxPackets = 0;
 
+    m_currentNodes = 0;
+
   // Set the timer to zero
     m_currTime = 0;
     m_termTime = 0;
@@ -37,31 +39,88 @@ bool Simulation::buildSimulation()
 {
 
   // Declare and Initialize variables
-
+    int index = 0;
+    char userInput = '0';
+    bool buildSim = true;
+ 
   // Loop through build simulation menu
+  while( buildSim )
+  {
+
+    cout << "Option 1. Upload nodes from Mesh. " << '\n';
+    cout << "Option 2. Create nodes for mesh by hand. " << '\n';
+    cout << "Option 3. Option space available. " << '\n';
+    cout << "Option 4. Packet Builder. " << '\n';
+    cout << "Option 5. Packet Generator. " << '\n';
+    cout << "Option 6. Exit Builder. " << '\n';
+
+    cin >> userInput;
 
     // Ask for user input
+    switch(userInput)
+    {
 
       // switch based on input
+      case '1': // upload nodes from file to mesh
+             break;
+ 
+      case '2': // `
+             break;
+
+      case '3': //
+             break;
+
+      case '4': // Packet Builder: Only if two valid nodes exist in the mesh.
+             break;
+
+      case '5': 
+             break;
   
+      case '6': buildSim = false;
+             break;
+ 
         // Option 4. Packet Builder : Only if two valid nodes exist in the mesh.
 
         // Option 5. Packet Generator : Only if two valid nodes exist in the mesh.
-
+    }
+  }
    // stubb function
    return false;
 
 }
 
 
-bool Simulation::addNodeToMesh()
+bool Simulation::addNodeToMesh(const NetworkNode& node)
 {
+
+  // Declare and Initialize variables
+    int index = 0;
+
+  // if there is room in the mesh add the node to the mesh
+    if( m_mesh->getCurrentNumOfNodes() < m_mesh->getMaxNumOfNodes())
+    {
+
+      // Add node 
+      m_mesh->addNode(node);
+
+    }
+  // else report false 
+
+
   // function stubb
   return false;
 }
 
 bool Simulation::establishLink(int& src, int& dest)
 {
+  // Declare and Initialize variables
+
+  // link the nodes if they exist in the node registry.
+  
+     m_mesh->linkNodes(src,dest);
+      
+    //  
+
   // function stubb
   return false;
 }
@@ -154,6 +213,9 @@ bool Simulation::update(time_t delta)
   // Update each node in the node registry
     // each update will generate an update report this report will contain the path to get to a node
     // and throughput information.
+
+  // if a node in the registry returns true then we know the update reported a truth. The packet
+    // was received. //TODO: message reporting
 
   // The only way to determine the overall max throughput for a network is to understand the paths inside the network. The max throughput for a network changes depending on the path. The max throughput in our case will be the max throughput that the network generates after x amount of packets sent. 
 

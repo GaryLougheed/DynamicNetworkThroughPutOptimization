@@ -123,6 +123,10 @@ class NetworkMesh
     // Upload mesh from file 
       bool uploadMesh();
 
+    //
+      bool doesNodeExist(const int& nodeId);
+
+
     // Update Function
       bool update(time_t delta);
 

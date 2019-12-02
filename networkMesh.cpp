@@ -161,13 +161,15 @@ Path* NetworkMesh::getPathReg()const
 bool NetworkMesh::addNode(const NetworkNode& node)
 {
   // Declare and Initialize variables
-
+    
   // Check to see if a space is available for the new node.
- 
+   
   // Add Node to the network mesh
 
   // increment current number of initialized nodes in the mesh.
 
+  // function stubb
+  return false;
 }
 
 bool NetworkMesh::addNode()
@@ -214,8 +216,15 @@ bool NetworkMesh::linkNodes(const int& nodeId_A, const int& nodeId_B)
   // Declare and Initialize variables
 
   // Check if the the nodes exist in the node registry
+    if( doesNodeExist(m_nodeRegistry[nodeId_A]) && doesNodeExist(m_nodeRegistry[nodeId_B])
+    {
+      // If both nodes exist in the registry then those nodes can be linked together
+        m_nodeRegistry[nodeId_A].addLink(nodeId_B);
+        m_nodeRegistry[nodeId_B].addLink(nodeId_A);
 
-    // If both nodes exist in the registry then those nodes can be linked together 
+      return true;
+ 
+    }
  
   return false;
 }
@@ -246,19 +255,41 @@ bool NetworkMesh::uploadMesh()
   return false;
 } 
 
+bool NetworkMesh::doesNodeExist(const int& nodeId)
+{
+  // Declare and Initialize variables
+
+  // if the current number of nodes is equal to or less than nodeID+1
+    // return true;
+    if(nodeId+1 <= m_currentNumOfNodes)
+      return true;
+
+  // then nodeId is not within the range of the mesh. //TODO: this does not detect deleted nodes.
+  return false;
+}
+
 bool NetworkMesh::update(time_t delta)
 {
   // Declare and initialize variables
+    int index = 0;
 
   // Iterate through the node registry and tick each node.
+    for(index = 0; index < m_currentNumOfNodes; index++)
+    { 
+      // Update return true if the packet sent across the network has been received. 
+      if(!m_nodeRegistry[index].update(delta)) 
+        return false;
+      else
+        return true;
+      // if the node that is ticked returns false,
+        // then return false indicating a bad simulation time update.
+    }
 
-  // if the node that is ticked returns false, then return false indicating a bad simulation time update.
 
-
-
-
+  // Error report //TODO: store in report later
+    cout << "Packet did not reach Destination." << '\n';
   // function stubb
-  return false;
+  return true;
 }
 
 NetworkNode& NetworkMesh::operator[](int index)const

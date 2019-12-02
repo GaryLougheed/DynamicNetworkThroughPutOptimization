@@ -125,7 +125,7 @@ int main()
   char userInput = '0';
   bool runSimulation = true;
   time_t current_time = 0;
-  Simulation hi;
+  Simulation sim;
   time_t simRunTime = 0;
 
   // Networking Simulation
@@ -147,33 +147,36 @@ int main()
       switch( userInput)
       {
         // Upload Network file fstream
-        case '1':
+        /*case '1': 
                break;
 
         // Interaction with Network Mesh (add, delete, and change Node Parameters)
         case '2': 
                break;
-
+        */
+        case '1':
+               sim.buildSimulation();
+               break; 
         // Run Simulation // outputs? parameter duration for simulation.
          // Ask the user how long the simulation should run for, Remind user to use option 4 before 
            // running simulation.
-        case '3':
+        case '2':
                cout << '\n' << "How long would you like to run the simulation for? ";
                cin >> simRunTime; 
                current_time = time(NULL);
                cout<< "Test: "  << current_time << "seconds passed since processID" << '\n';
-               hi.run();
-               cout << hi;
+               sim.run();
+               cout << sim;
                break;
 
         // Enter Events for the Network.
-        case '4':
+        case '3':
               // At time T influence the throughput of the network. 
 
               break;    
 
       // Print and Send Simulation data to file.  
-        case '5':
+        case '4':
                printPrompt("Ending Simulation");
                runSimulation = false;
                break;
@@ -194,11 +197,10 @@ void displayMenu()
 {
   printPrompt("");
   printPrompt(" Networking Temporary Menu");
-  printPrompt(" 1. Upload Network Mesh from a file. ");
-  printPrompt(" 2. Interact with the Network Mesh, prior to run time. ");
-  printPrompt(" 3: Run Simulation, currently testing print function. ");
-  printPrompt(" 4. Enter Events for the Simulation. ");
-  printPrompt(" 5. Print and Send Simulation data to the file ");
+  printPrompt(" 1. Build simulation. ");
+  printPrompt(" 2: Run Simulation, currently testing print function. ");
+  printPrompt(" 3. Enter Events for the Simulation. ");
+  printPrompt(" 4. End Simulation. Print and Send Simulation data to the file ");
  
 }
 
