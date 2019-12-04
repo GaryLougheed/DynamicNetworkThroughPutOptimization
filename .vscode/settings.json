@@ -1,8 +1,12 @@
 {
     "files.associations": {
+<<<<<<< Updated upstream
         "istream": "cpp",
         "memory": "cpp",
         "type_traits": "cpp",
         "xlocnum": "cpp"
+=======
+        "istream": "cpp"
+>>>>>>> Stashed changes
     }
 }

@@ -31,7 +31,44 @@ void GenerateInitialNetwork(int numberOfNodes)
     int secondNodeID;
     int dice;
 
+<<<<<<< Updated upstream
     srand(time(NULL));
+=======
+  // link the nodes if they exist in the node registry.
+  
+     m_mesh->linkNodes(src,dest);
+      
+    //  
+
+  // function stubb
+  return false;
+}
+
+
+bool Simulation::packetGenerator()
+{
+   // Declare and Initialize variables
+   srand(time(NULL));
+   Packet newPacket;
+   int srcNode;
+   int destNode;
+   int flag = false
+     // Randomize Src and Dest
+     while(flag == false)
+     {
+        srcNode = m_mesh->nodeRegistry[rand() % m_mesh.getCurrentNumOfNodes()].getNodeId();
+        destNode = m_mesh->nodeRegistry[rand() % m_mesh.getCurrentNumOfNodes()].getNodeId();
+        if(srcNode != destNode)
+        {
+          flag = truel
+        }
+     }
+
+     //still need access to setters
+     // Randomize data
+
+     // Randomize unique packet characteristics
+>>>>>>> Stashed changes
 
     for(int nodeSelection = 0; nodeSelection < numberOfNodes; nodeSelection++)
     {
@@ -182,6 +219,7 @@ bool sendPacket(Packet packetToSend, int nodeID)
     //send packet from and to specific nodes
 }
 
+<<<<<<< Updated upstream
 void listNetworkNodes()
 {
     for(int i = 1; i <= m_mesh.getCurrentNumberofNodes(); i++)
@@ -192,3 +230,112 @@ void listNetworkNodes()
         std::cout << "Throughput: " << m_mesh->m_nodeRegistry[i].getThroughput() << std::endl;
     }
 }
+=======
+
+void Simulation::buildMeshFromFile()
+{
+    int numOfNodes;
+    int numOfLinks;
+    int tempInt;
+    bool tempBool;
+    double tempDouble;
+    NetworkNode temp;
+    ifstream simFile;
+
+    //open the file and extract number of nodes in mesh
+    simFile.open("simFile.txt");
+    simFile.ignore(256, ':');
+    simFile >> numOfNodes;
+
+    //loop through for each node in file
+    for(int i = 0; i < numOfNodes; i++)
+    {
+        //set node ID
+        simFile.ignore(256, ':');
+        simFile >> tempInt;
+        temp.setNodeID(tempInt);
+        //set number of links;
+        simFile.ignore(256, ':');
+        simFile >> numOfLinks;
+        temp.setNumOfLinks(numOfLinks);
+        //set wifi feature
+        simFile.ignore(256, ':');
+        simFile >> tempBool;
+        temp.setWifiEnabled(tempBool);
+        //set processing delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setProcessingDelay(tempDouble);
+        //set transmission delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setTransmissionDelay(tempDouble);
+        //set queue delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setQueueDelay(tempDouble);
+        //set propragation delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setPropagationDelay(tempDouble);
+        //set wifi range
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setWifiRange(tempDouble);
+        //set IPV6 feature
+        simFile.ignore(256, ':');
+        simFile >> tempBool;
+        temp.setIPV6(tempBool);
+        //set the location
+        simFile.ignore(256, ':');
+
+        //add the node to the mesh
+        m_mesh.addNode(temp);
+    }
+
+    int idA, idB;
+    for(int i = 0; i < numOfNodes; i++)
+    {
+        simFile.ignore(256, ':');
+        for(int j = 0; j < m_mesh->nodeRegistry[i].getNumOfLinks(); j++)
+        {
+            simFile.ignore(256, ':');
+            simFile >> idA;
+            simFile.ignore(256, ':');
+            simFile >> idB;
+            m_mesh->nodeRegistry[i].setLink(m_mesh->nodeRegistry[idB]);
+            simFile.ignore(256, ':');
+            simFile >> tempDouble;
+            m_mesh->nodeRegistry[i].setThroughput(tempDouble);
+        }
+    }
+}
+
+ostream& operator<<(ostream& os, const Simulation& sim)
+{
+
+   os << "Simulation Data: " << '\n';
+   os << "Network Mesh Data: " << sim.getNetworkMesh() << '\n';
+
+
+  return os;
+}
+
+/**
+Link* m_links;
+    int m_nodeId;
+    int m_numOfLinks;
+    int m_bufferSize;
+    bool m_wifiEnabled;
+    double m_throughput;
+    double m_processingDelay;
+    double m_transmissionDelay;
+    double m_queueDelay;
+    double m_propagationDelay;
+    double m_wifiRange;
+    bool m_isIPV6;
+    time_t m_timeLived;
+    Packet* m_packet;
+    Vector* m_location;
+    **/
+>>>>>>> Stashed changes
