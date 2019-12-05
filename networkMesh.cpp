@@ -63,11 +63,35 @@ NetworkMesh::NetworkMesh(const NetworkMesh& rhs)
       m_pathReg = NULL;
       m_numOfPaths = 0; 
       m_nodeRegistry = new NetworkNode[m_maxNodes];
+  
+     
+      if( m_nodeRegistry != NULL)
+      {
+       // iterate through the rhs mesh and assign the nodes to the left hand side/this.
+         for(index = 0; index < rhs.getCurrentNumOfNodes(); index++)
+         {
+           m_nodeRegistry[index] = rhs.m_nodeRegistry[index];
+         } 
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       // copy nodes over
 
 
-// TODO FIXED STATIC UPDATE  
       
 
    /*
@@ -166,9 +190,10 @@ bool NetworkMesh::addNode(const NetworkNode& node)
     if( getCurrentNumOfNodes() < getMaxNumOfNodes()) 
     {
       // Add Node to the network mesh
+        m_nodeRegistry[m_currentNumOfNodes] = node;
 
       // increment current number of initialized nodes in the mesh.
-
+        m_currentNumOfNodes++;
     }
 
 
@@ -311,7 +336,7 @@ ostream& operator<<(ostream& os, const NetworkMesh& rhs)
   os << "NetworkMesh out stream operator: " << '\n';
  
   // Iterate through the network mesh. 
-    for(index = 0; index < rhs.getMaxNumOfNodes(); index++)
+    for(index = 0; index < rhs.getCurrentNumOfNodes(); index++)
       os << rhs[index] << '\n'; 
 
  

@@ -1,3 +1,7 @@
+#ifndef _HELPER_FUNCTIONS_
+#define _HELPER_FUNCTIONS_
+
+
 
 // Header files
 #include <iostream>
@@ -30,5 +34,5 @@ int countEndLines(ifstream& fin,char fileName[MAX_CSTRING_SIZE], char fileInput[
 
 
 
-
+#endif
 

@@ -74,9 +74,7 @@ class NetworkMesh
        Process: There exists a contigous node registry. The node added will be assigned to the first
                 available spot within the registry. 
        Dependancies: network node, iostream, vector, and packet.
-
-      // TODO: file io for addNode overload or new function.
-    */ 
+    */
       bool addNode(const NetworkNode& node);
 
       bool addNode(); // TODO: delete this function prototype
@@ -86,11 +84,10 @@ class NetworkMesh
        Output: true or false if the node is successfully deleted.
        Process: The node registry will change completely this will influence the current static
                 node ID provider. The node provider must provide the empty place first. An obtain node ID
-                provider must be developed // TODO.
                 The deletion will iterate through the entire node reg to delete any links to the delete
                 node. Once the iteration is complete the function will report true or false if the memory
                 was correctly deallocated. Since the network is DSR no update tables will be influenced.
-       Dependancies: nodeIdProvider function//TODO , networkNode destructor, link destructor, 
+       Dependancies: networkNode destructor, link destructor, and packet destructor 
                      and node registry.
     */
       bool deleteNode(const int& nodeId);
@@ -99,9 +96,9 @@ class NetworkMesh
        Input: two unqiue node IDs, if identical node is are provided the function reports false. 
        Output: an updated node registry that contains the link established
        Process: The nodeRegistry accesses the nodeID provided and
-                uses the networkNode establishLink function //TODO  to link the A and B nodes.
+                uses the networkNode establishLink function.
                 No updates to the table will be necessary. 
-       Dependancies: establishLink function //TODO and NetworkNode 
+       Dependancies: establishLink function, NetworkMesh addNode func, NetworkNode addNode func 
     */
       bool linkNodes(const int& nodeId_A, const int& nodeId_B);
 
@@ -132,7 +129,6 @@ class NetworkMesh
 
       // Node Id, delay processing, delay queueing, delay propagation, and delay throughput.
    
-      //   
 
      //  Overloaded Operators
 

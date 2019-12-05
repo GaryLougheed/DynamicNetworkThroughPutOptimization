@@ -2,13 +2,7 @@ Nodes in Mesh: 4
 
 Node ID: 0
 Node Parameters:
-
 NumOfLinks: 3
-
-SRC: 0, DEST: 1 Throughput: 15600
-SRC: 0, DEST: 2 Throughput: 780
-SRC: 0, DEST: 3 Throughput: 156
-
 WifiEnabled: False
 ProcessingDelay: 0.01
 TransmissionDelay: 0.2
@@ -17,21 +11,63 @@ PropagationDelay: 0.2
 WifiRange: 10
 IPV6: false
 Location: 0, 0, 0
-    Link* m_links;
-    int m_nodeId;
-    int m_numOfLinks;
-    int m_bufferSize;
-    bool m_wifiEnabled;
-    double m_throughput;
-    double m_processingDelay;
-    double m_transmissionDelay;
-    double m_queueDelay;
-    double m_propagationDelay;
-    double m_wifiRange;
-    bool m_isIPV6;
-    time_t m_timeLived;
-    Packet* m_packet;
-    Vector* m_location;
+
+Node ID: 1
+Node Parameters:
+NumOfLinks: 3
+WifiEnabled: False
+ProcessingDelay: 0.01
+TransmissionDelay: 0.2
+QueueDelay: 0.1
+PropagationDelay: 0.2
+WifiRange: 10
+IPV6: false
+Location: 0, 0, 0
+
+Node ID: 2
+Node Parameters:
+NumOfLinks: 3
+WifiEnabled: False
+ProcessingDelay: 0.01
+TransmissionDelay: 0.2
+QueueDelay: 0.1
+PropagationDelay: 0.2
+WifiRange: 10
+IPV6: false
+Location: 0, 0, 0
+
+Node ID: 3
+Node Parameters:
+NumOfLinks: 3
+WifiEnabled: False
+ProcessingDelay: 0.01
+TransmissionDelay: 0.2
+QueueDelay: 0.1
+PropagationDelay: 0.2
+WifiRange: 10
+IPV6: false
+Location: 0, 0, 0
+
+Node link information
+Node 1:
+SRC: 0 DEST: 1 Throughput: 15600
+SRC: 0 DEST: 2 Throughput: 780
+SRC: 0 DEST: 3 Throughput: 156
+
+Node 2:
+SRC: 1 DEST: 1 Throughput: 15600
+SRC: 1 DEST: 2 Throughput: 780
+SRC: 1 DEST: 3 Throughput: 156
+
+Node 3:
+SRC: 2 DEST: 1 Throughput: 15600
+SRC: 2 DEST: 2 Throughput: 780
+SRC: 2 DEST: 3 Throughput: 156
+
+Node 4:
+SRC: 3 DEST: 1 Throughput: 15600
+SRC: 3 DEST: 2 Throughput: 780
+SRC: 3 DEST: 3 Throughput: 156
 
 
 Packets to Send: 100

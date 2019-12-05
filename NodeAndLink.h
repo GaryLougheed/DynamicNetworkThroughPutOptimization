@@ -46,9 +46,9 @@ class Link
 
    // Getters and Setters
      int getThroughput()const;
-     NetworkNode* getLink()const;
+     NetworkNode* getDest()const;
      bool getInUse()const;
-
+ 
 
    // set destination to a node in the heap(dynamically allocated)
      void setDest(NetworkNode* node);
@@ -88,8 +88,6 @@ class NetworkNode
     time_t m_timeLived;
     Packet* m_packet;
     Vector* m_location;
-    static int m_nodeIdProvider;
-    // packet array
 
         
   public:
@@ -136,7 +134,7 @@ class NetworkNode
       Vector getLocation()const;
 
    // Setters 
-      bool setLink(NetworkNode* ptr_otherNode);
+      void setNodeID(const int& val);
 
       void setNumOfLinks(int numOfLinks); 
 

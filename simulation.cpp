@@ -21,7 +21,7 @@ Simulation::Simulation()
 
 Simulation::Simulation(const Simulation& mesh)
 {
-  // Temporary function //TODO: may not be needed
+
 }
 
 Simulation::~Simulation()
@@ -42,6 +42,39 @@ bool Simulation::buildSimulation()
     int index = 0;
     char userInput = '0';
     bool buildSim = true;
+    NetworkNode temp;
+    Packet pkt;
+   
+
+
+// Test initialization of packet
+  pkt.setSrcId(0);
+  pkt.setDestId(1);
+  pkt.setData(10);
+ 
+
+  
+
+// Test function
+
+temp.setThroughput(0.1);
+
+//cout << temp;
+
+
+addNodeToMesh(temp);
+
+temp.setThroughput(0.3);
+
+addNodeToMesh(temp);
+
+establishLink(0,1);
+
+m_sendBuffer = new Packet[1];
+m_sendBuffer[0] = pkt;
+
+
+
  
   // Loop through build simulation menu
   while( buildSim )
@@ -61,7 +94,7 @@ bool Simulation::buildSimulation()
     {
 
       // switch based on input
-      case '1': // upload nodes from file to mesh
+      case '1': buildMeshFromFile();
              break;
  
       case '2': // `
@@ -71,6 +104,8 @@ bool Simulation::buildSimulation()
              break;
 
       case '4': // Packet Builder: Only if two valid nodes exist in the mesh.
+                // create packet.
+                // load packet into packet buffer.
              break;
 
       case '5': 
@@ -101,7 +136,17 @@ bool Simulation::addNodeToMesh(const NetworkNode& node)
     {
 
       // Add node 
-      m_mesh->addNode(node);
+ 
+
+      // Provide the Node id. The Node Id must be in sync with the node registry to provide
+        // quick access.
+        m_mesh->addNode(node);
+        (*m_mesh)[m_currentNodes].setNodeID(m_currentNodes);
+      cout << "Node Data for current set ID sim.cpp line 143: " << (*m_mesh)[m_currentNodes];
+      // Currents increase
+      m_currentNodes++;
+
+
 
     }
   // else report false 
@@ -111,7 +156,7 @@ bool Simulation::addNodeToMesh(const NetworkNode& node)
   return false;
 }
 
-bool Simulation::establishLink(int& src, int& dest)
+bool Simulation::establishLink(const int& src, const int& dest)
 {
   // Declare and Initialize variables
 
@@ -170,12 +215,12 @@ bool Simulation::run(int runLength)
   // Declare and initialize simulation parameters
 
     // Mesh iterator used to iterate through the mesh and update each node. 
-    int meshUpdateIterator = 0;
-
+      int meshUpdateIterator = 0;
     // Standardize time for stability and simulation time initialization.
       time_t standardDelta = 0.2;
       m_currTime = 0.0;
-      m_termTime = runLength; 
+      m_termTime = runLength;
+ 
     // Secure Throughput setting: 1 second. 
       int secure_throughput = 0.3;
       
@@ -201,11 +246,14 @@ bool Simulation::run(int runLength)
           // Assume: At 0.0 all packets(in this test sim case, 1 packet) will be loaded into the node
              // This packet will be sent by the source node during this first update.
 
-          // send packet
-            m_mesh[m_currentPacket[0].getSrcId()].setPacket(m_currentPacket[0]);
-
+          // send packet // TODO:The constant literal 0 will become an iterator later.
+            if( m_sendBuffer != NULL)
+            {
+              // This loads the packet from the send buffer to the network node.
+                ((*m_mesh)[m_sendBuffer[0].getSrcId()]).setPacket(m_sendBuffer[0]);
+            }
             // remove from buffer
-            m_currentPacket--; 
+            m_currentPackets--; 
         }  
     // We need to tick the node mesh ever time step. 
       for(meshUpdateIterator = 0; meshUpdateIterator < m_mesh->getCurrentNumOfNodes(); meshUpdateIterator++)
@@ -297,6 +345,122 @@ int Simulation::getMaxPackets()const
 
 }
 
+
+void Simulation::buildMeshFromFile()
+{
+    int numOfNodes;
+    int numOfLinks;
+    int tempInt;
+    bool tempBool;
+    double tempDouble;
+    NetworkNode temp;
+    ifstream simFile;
+    char* fileInput = new char[MAX_CSTRING_SIZE];
+    char wait = '0';
+    //open the file and extract number of nodes in mesh
+    simFile.open("simFile.txt");
+    simFile.ignore(256, ':');
+    simFile >> numOfNodes;
+
+    //loop through for each node in file
+    for(int i = 0; i < numOfNodes; i++)
+    {
+        //set node ID
+        simFile >> fileInput;
+        cout << fileInput;
+        simFile >> fileInput;
+        cout << fileInput;
+        simFile >> tempInt;
+        temp.setNodeID(tempInt);
+        
+        simFile >> fileInput;
+        cout << fileInput;
+        simFile >> fileInput;
+        cout << fileInput;
+        simFile >> tempInt;
+        
+        //set number of links;
+        simFile >> fileInput;
+        simFile >> numOfLinks;
+        temp.setNumOfLinks(numOfLinks);
+        //set wifi feature
+        simFile.ignore(256, ':');
+        simFile >> tempBool;
+        temp.setWifiEnabled(tempBool);
+        //set processing delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setProcessingDelay(tempDouble);
+        //set transmission delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setTransmissionDelay(tempDouble);
+        //set queue delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setQueueDelay(tempDouble);
+        //set propragation delay
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setPropagationDelay(tempDouble);
+        //set wifi range
+        simFile.ignore(256, ':');
+        simFile >> tempDouble;
+        temp.setWifiRange(tempDouble);
+        //set IPV6 feature
+        simFile.ignore(256, ':');
+        simFile >> tempBool;
+        temp.setIPV6(tempBool);
+        //set the location
+        simFile.ignore(256, ':');
+
+        //add the node to the mesh
+        m_mesh->addNode(temp);
+    }
+
+                ((*m_mesh)[m_sendBuffer[0].getSrcId()]).setPacket(m_sendBuffer[0]);
+    int idA, idB;
+    for(int i = 0; i < numOfNodes; i++)
+    {
+        simFile.ignore(256, ':');
+        for(int j = 0; j < ((*m_mesh)[i].getNumOfLinks()); j++)
+        {
+            simFile.ignore(256, ':');
+            simFile >> idA;
+            simFile.ignore(256, ':');
+            simFile >> idB;
+        //    m_mesh->nodeRegistry[i].setLink(m_mesh->nodeRegistry[idB]);
+            simFile.ignore(256, ':');
+            simFile >> tempDouble;
+         //   m_mesh->nodeRegistry[i].setThroughput(tempDouble);
+        }
+    }
+}
+
+bool Simulation::uploadMesh(ifstream& fin, char fileName[MAX_CSTRING_SIZE])
+{
+  // Declare and Initialize variables
+    char* fileInput = new char[MAX_CSTRING_SIZE]; 
+  // Open file
+    fin.open(fileName); 
+  // If the file is good continue, else report false,
+
+  if( !fin.good())
+  {
+    cout << "Error!";
+
+    return false;
+  }
+
+  while(fin.good())
+  {
+    fin >> fileInput; 
+
+  }
+
+
+
+}
 
 
 ostream& operator<<(ostream& os, const Simulation& sim)

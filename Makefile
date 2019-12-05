@@ -22,8 +22,11 @@ networkMesh.h: networkMesh.h
 simulation.o: simulation.h
 	g++ -c simulation.cpp
 
-main.o: vector.h packet.h path.h NodeAndLink.h networkMesh.h simulation.h
+main.o: vector.h packet.h path.h NodeAndLink.h networkMesh.h simulation.h helperFunctions.h
 	g++ -c main.cpp 
+
+zip: 
+	zip NetworkingProject *.h *.cpp *.o *.txt Makefile
 
 clean:
 	rm *.gch *.o run 

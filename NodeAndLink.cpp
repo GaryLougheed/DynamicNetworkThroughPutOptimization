@@ -1,12 +1,9 @@
 #include "NodeAndLink.h"
 
 
-int NetworkNode::m_nodeIdProvider = 0;
-
 NetworkNode::NetworkNode()
 {
-  m_nodeIdProvider++;
-  m_nodeId = m_nodeIdProvider;
+  m_nodeId = 0;
   m_links = new Link[MAX_NUM_OF_LINKS];
   m_numOfLinks = 0;
   m_bufferSize = 100000000; // Typical Buffer size for a router is 10MB, via fasterdata.es.net
@@ -23,7 +20,6 @@ NetworkNode::NetworkNode()
 
   m_packet = new Packet;
   m_location = new Vector(0,0,0);
-
 
 }
 
@@ -42,20 +38,31 @@ NetworkNode::NetworkNode(const NetworkNode& rhs)
         m_links[index] = rhs.m_links[index];
     }
 
-    m_numOfLinks = 1;
-    m_bufferSize = 100000000; // Typical Buffer size for a router is 10MB, via fasterdata.es.net
-    m_wifiEnabled = false;
-    m_throughput = 0;
-    m_processingDelay = 0;
-    m_transmissionDelay = 0;
-    m_queueDelay = 0;
-    m_propagationDelay = 0;
-    m_wifiRange = 0;
-    m_isIPV6 = false;
-   
-  m_timeLived = rhs.m_timeLived;
-    m_packet = new Packet;
-    m_location = new Vector(0,0,0);
+    m_numOfLinks = rhs.m_numOfLinks;
+    m_bufferSize = rhs.m_bufferSize; // Typical Buffer size for a router is 10MB, via fasterdata.es.net
+    m_wifiEnabled = rhs.m_wifiEnabled;
+    m_throughput = rhs.m_throughput;
+    m_processingDelay = rhs.m_processingDelay;
+    m_transmissionDelay = rhs.m_transmissionDelay;
+    m_queueDelay = rhs.m_queueDelay;
+    m_propagationDelay = rhs.m_propagationDelay;
+    m_wifiRange = rhs.m_wifiRange;
+    m_isIPV6 = rhs.m_isIPV6;
+    m_timeLived = rhs.m_timeLived;
+    
+    if( rhs.m_packet != NULL)
+    {
+      m_packet = new Packet;
+      *m_packet = *(rhs.m_packet);
+    }
+    else
+      m_packet = NULL;
+    
+    if( rhs.m_location != NULL)
+    { 
+      m_location = new Vector(0,0,0);
+      *m_location = *(rhs.m_location);
+    }
   }
 
 }
@@ -86,13 +93,48 @@ NetworkNode::~NetworkNode()
 NetworkNode& NetworkNode::operator=(const NetworkNode& rhs)
 {
   // Declare and Initialize variables
+  int index = 0;
 
   // Check to see if there exists reduant assignment
     if( this != &rhs) 
     {
       // iterate through the rhs and assign the links
 
+
+    m_nodeId = rhs.m_nodeId;
+
+    if( rhs.m_links != NULL)
+    {
+      for(index = 0; index < rhs.m_numOfLinks; index++)
+        m_links[index] = rhs.m_links[index];
     }
+
+    m_numOfLinks = rhs.m_numOfLinks;
+    m_bufferSize = rhs.m_bufferSize; // Typical Buffer size for a router is 10MB, via fasterdata.es.net
+    m_wifiEnabled = rhs.m_wifiEnabled;
+    m_throughput = rhs.m_throughput;
+    m_processingDelay = rhs.m_processingDelay;
+    m_transmissionDelay = rhs.m_transmissionDelay;
+    m_queueDelay = rhs.m_queueDelay;
+    m_propagationDelay = rhs.m_propagationDelay;
+    m_wifiRange = rhs.m_wifiRange;
+    m_isIPV6 = rhs.m_isIPV6;
+    m_timeLived = rhs.m_timeLived;
+    
+    if( rhs.m_packet != NULL)
+    {
+      m_packet = new Packet;
+      *m_packet = *(rhs.m_packet);
+    }
+    else
+      m_packet = NULL;
+    
+    if( rhs.m_location != NULL)
+    { 
+      m_location = new Vector(0,0,0);
+      *m_location = *(rhs.m_location);
+    }
+   }    
   // return chain operation
 
     return *this;
@@ -100,6 +142,13 @@ NetworkNode& NetworkNode::operator=(const NetworkNode& rhs)
 
 NetworkNode* NetworkNode::getLink(const int& linkId)const
 {
+  // 
+
+    return m_links[linkId].getDest(); 
+ 
+  //
+
+
   return NULL;
 }
 
@@ -125,42 +174,43 @@ bool NetworkNode::getWifiEnabled()const
 
 double NetworkNode::getThroughput()const
 {
-  return 0.0;
+  // TODO: One throughput for each node for testing.
+  return m_throughput;
 }
 
 double NetworkNode::getProcessingDelay()const
 {
 
-  return 0.0;
+  return m_processingDelay;
 }
 
 double NetworkNode::getTransmissionDelay()const
 {
-  return 0.0;
+  return m_transmissionDelay;
 }
 
 double NetworkNode::getQueueDelay()const
 {
 
-  return 0.0;
+  return m_queueDelay;
 }
 
 double NetworkNode::getPropagationDelay()const
 {
 
-  return 0.0;
+  return m_propagationDelay;
 }
 
 double NetworkNode::getWifiRange()const
 {
 
-  return 0.0;
+  return m_wifiRange;
 }
 
 bool NetworkNode::isIPV6()const
 {
 
-  return false;
+  return m_isIPV6;
 }
 
 Packet NetworkNode::getPacket()const
@@ -176,69 +226,69 @@ Vector NetworkNode::getLocation()const
     return *m_location;
 }
 
-bool NetworkNode::setLink(NetworkNode* ptr_otherNode)
+void NetworkNode::setNodeID(const int& val)
 {
-  return false;
+  m_nodeId = val;
 }
 
 void NetworkNode::setNumOfLinks(int numOfLinks)
 {
-
+  m_numOfLinks = numOfLinks; 
 }
 
 void NetworkNode::setBufferSize(int bufferSize)
 {
-
+  m_bufferSize = bufferSize;
 }
 
 void NetworkNode::setWifiEnabled(bool wifiSetting)
 {
-
+  m_wifiEnabled = wifiSetting;
 }
 
 void NetworkNode::setThroughput(double throughput)
 {
-
+  m_throughput = throughput;
 }
 
 void NetworkNode::setProcessingDelay(double processingDelay)
 {
-
+  m_processingDelay = processingDelay;
 }
 
 void NetworkNode::setTransmissionDelay(double transmissionDelay)
 {
-
+  m_transmissionDelay = transmissionDelay;
 }
 
 void NetworkNode::setQueueDelay(double queueDelay)
 {
-
+  m_queueDelay = queueDelay;
 }
 
 void NetworkNode::setPropagationDelay(double propagationDelay)
 {
-
+  m_propagationDelay = propagationDelay;
 }
 
 void NetworkNode::setWifiRange(double wifiRange)
 {
-
+  m_wifiRange = wifiRange;
 }
 
 void NetworkNode::setIPV6(bool IPV6setting)
 {
-
+  m_isIPV6 = IPV6setting;
 }
 
 void NetworkNode::setPacket(Packet packet)
 {
-
+  *m_packet = packet;
 }
 
 void NetworkNode::setLocation(Vector vector)
 {
-
+   *m_location = vector;
 }
 
 bool NetworkNode::update(time_t delta)
@@ -263,13 +313,14 @@ bool NetworkNode::update(time_t delta)
             // send packet on link only if the there is a time sync.
               // We obtain throughput here because throughput indicates how much time
                // it will take to send one standard unit packet. 
-              if(m_timeLived > m_links[linkIndex].getThroughput())
+              if(m_timeLived > m_links[linkIndex].getThroughput() + m_packet->getTimeTraversed())
               {
-                // send Packet src to dest.
- 
+
                 // toggle in use to true.
                   m_links[linkIndex].toggleInUse();
 
+                // send Packet src to dest.
+                  return sendPacket(linkIndex);
               }
           }
         }
@@ -301,8 +352,16 @@ bool NetworkNode::rcvPacket(Packet* pkt)
     // TODO: Network is built on one packet send test drive.
     // The buffer is of size on packet for this simulation.
     // all nodes clear there buffer after one successful send.
-    // m_packet = pkt 
-  
+    if( m_packet == NULL)
+    {
+      *m_packet = *pkt;
+      //*m_packet.addNodeIntoPath();
+    }
+ 
+    // TODO Queueing buffer
+
+    
+ 
   // Check to see if the packet has reached its destination.
 
   return false;
@@ -316,12 +375,20 @@ bool NetworkNode::sendPacket(const int& linkID)
   // Send packet on link.
     // Link is assumed to be toggle prior to function call: TODO proper toggling occurance.
     // mark link as sent.
+      if( m_links[linkID].getDest()->rcvPacket(m_packet))
+      { 
+        m_packet->setTimeTraversed(m_links[linkID].getThroughput());
+        m_links[linkID].toggleInUse();
+        m_packet = NULL;
+        return true;
+      } 
+
 
   // call rcv on the dest node of the link.
     // this rcv will report to the node mesh that the packet has reached its end.
       //return (rvc());
-
-
+        m_links[linkID].toggleInUse();
+        m_packet = NULL;
 
   return false;
 }
@@ -441,7 +508,7 @@ int Link::getThroughput()const
   return m_throughput;
 }
 
-NetworkNode* Link::getLink()const
+NetworkNode* Link::getDest()const
 {
   return m_dest;
 }
@@ -474,7 +541,7 @@ ostream& operator<<(ostream& os, const Link& rhs)
 {
 
   if( rhs.m_dest != NULL)
-     os << "Dest Node is : " << *(rhs.getLink()) << '\n';
+     os << "Dest Node is : " << *(rhs.getDest()) << '\n';
      os << "Links Throughput: " << rhs.getThroughput()<< '\n';
   return os;
 }

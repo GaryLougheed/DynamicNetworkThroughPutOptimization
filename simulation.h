@@ -16,7 +16,6 @@
 using namespace std;
 
 const int CONST_NO_PACKETS = 0; // a constant for defining no packets in the simulation buffer.
-
 class Simulation;
 ostream& operator<<(ostream&, const Simulation&);
 
@@ -101,8 +100,15 @@ class Simulation
    // Add node to mesh.
      bool addNodeToMesh(const NetworkNode& node);
 
+
+   // Build mesh from File
+     void buildMeshFromFile();
+
+     bool uploadMesh(ifstream& fin, char fileName[MAX_CSTRING_SIZE]);
+
+
    // Establish Link within Mesh
-     bool establishLink(int& src, int& dest);
+     bool establishLink(const int& src,const int& dest);
 
    // Remove node from mesh
  
